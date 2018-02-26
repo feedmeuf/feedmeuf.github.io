@@ -24,7 +24,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-icons.html">
+
+<!-- include classes in the main document -->
+
 
 <dom-module id="create-meal-page">
   <template>
@@ -46,11 +50,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-input-container-focus-color: white;
         --paper-input-container-input-color: white;
     }
+
+    #meal-form{
+      position: relative;
+      width: 100%;
+    }
     
     #inputs {
         display: flex;
         flex-direction: row;
         color: white;
+    }
+
+    .content{
+        display: flex;
+        display: flex;
+        flex-direction: row;
+        margin-left: 100px; 
+        margin-right: 100px;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+        width: 70%;
+    }
+
+    .form-content{
+      display: flex;
+      flex-direction: horizontal;
+      position: relative;
     }
     
     #search {
@@ -63,6 +90,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #signin-button {
         background: orange;
+    }
+
+    .col-25 {
+        float: left;
+        width: 25%;
+        margin-top: 6px;
+    }
+
+    .col-75 {
+        float:left;
+        margin-top: 6px;
+        margin-bottom: 2px;
+    }
+
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
     }
     
     #login-button.hover {
@@ -116,28 +178,79 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region style='background: linear-gradient(
-          rgba(0, 0, 0, 0.4),
-          rgba(0, 0, 0, 0.4)
-          ), url("../images/homebackground.jpg") no-repeat center center fixed; background-size: cover;'>
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.2)
+          ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+            <paper-button id='login-button'>Meal Search</paper-button>
+            <paper-button id='login-button'>Become a Host</paper-button>
             <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+            <paper-button raised id='signin-button'>Sign Out</paper-button>
           </app-toolbar>
         </app-header>
-        <div id='search-bar'>
-            <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
-            <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
-            <div id='inputs'>
-                <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
-            </div>
+
+    
+        <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
+          <h1 style="text-align: center; border-bottom: 2px solid black">Create a Meal</h1>
         </div>
+      
+
+        <div class="content">
+          <form method="get" action="/form/handler" id="meal-form">
+            <div class="form-content">
+              <label for="fname" class="col-25">First Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="Your first name.." class="col-75">
+            </div>
+            <div class="form-content">
+              <label for="fname" class="col-25">Last Name</label>
+              <input type="text" id="lname" name="lastname" placeholder="Your last name.." class="col-75">
+            </div>
+            <div class="form-content">
+              <label for="description" class="col-25">Description</label>
+              <textarea id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style="height:200px"></textarea>
+            </div>
+            <div class="form-content">
+              <label for="date" class="col-25">Date of Meal</label>
+              <input type="text" id="date" name="date" placeholder="01/01/18" class="col-75">
+            </div>
+            <div class="form-content">
+              <label for="time" class="col-25">Time of Meal</label>
+              <select id="time" name="time" class="col-75">
+                <option value="australia">5:00PM</option>
+                <option value="canada">6:00PM</option>
+                <option value="usa">7:00PM</option>
+                <option value="australia">8:00PM</option>
+                <option value="canada">9:00PM</option>
+                <option value="usa">10:00PM</option>
+                <option value="australia">11:00PM</option>
+              </select>
+            </div>
+            <div class="form-content">
+              <label for="guests" class="col-25">Number of Guests</label>
+              <select id="guests" name="guests" class="col-75">
+                <option value="one">1</option>
+                <option value="two">2</option>
+                <option value="three">3</option>
+                <option value="four">4</option>
+                <option value="five">5</option>
+                <option value="six">6</option>
+                <option value="sixplus">6+</option>
+              </select>
+            </div>
+            <div class="form-content">
+              <label for="guests" class="col-25">Select Image</label>
+            </div>
+            <paper-button raised id='signin-button' style="margin-top: 10px; text-align:center;">Submit</paper-button>
+          </form>
+        </div>
+    
+        
       </app-header-layout>
+
     </app-drawer-layout>
     
   </template>
