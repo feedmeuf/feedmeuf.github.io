@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="my-icons.html">
 
-<dom-module id="home-page">
+<dom-module id="faq-page">
   <template>
     <style>
       :host {
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #search-bar {
         position: relative;
-        top: 30%;
+        /*top: 30%;*/
         left: 25%;
         width: 50%;
         color: white;
@@ -67,6 +67,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #login-button.hover {
         background: #3469bc;
+    }
+
+    #faqs-list {
+      padding: 10px;
+      /*background: white;*/
+      position: relative;
+      left: 13%;
+      width: 75%;
+    }
+
+    .faq {
+      /*background: rgb(150,150,150);*/
+      margin: 20px;
+
     }
     
       app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -116,9 +130,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region style='background: linear-gradient(
-          rgba(0, 0, 0, 0.4),
-          rgba(0, 0, 0, 0.4)
-          ), url("../images/homebackground.jpg") no-repeat center center fixed; background-size: cover;'>
+          rgba(150, 150, 150, 0.4),
+          rgba(150, 150, 150, 0.4)
+          )'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
@@ -129,13 +143,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </app-toolbar>
         </app-header>
         <div id='search-bar'>
-            <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
-            <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
             <div id='inputs'>
                 <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
             </div>
+        </div>
+        <div id='faqs-list'>
+          <h1 style="margin: 20px; text-align: center;">FAQs</h1>
+          <dom-repeat items="{{faqs}}">
+            <template>
+              <div class='faq'>
+                <h1>{{item.question}}</h1>
+                <h3 style='font-weight: normal;'>{{item.answer}}</h3>
+              </div>
+            </template>
+          </dom-repeat>
         </div>
       </app-header-layout>
     </app-drawer-layout>
@@ -143,10 +164,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class HomePage extends Polymer.Element {
-      static get is() { return 'home-page'; }
+    class FaqPage extends Polymer.Element {
+      static get is() { return 'faq-page'; }
+      static get properties() {
+        return {
+          faqs: {
+            value() {
+              return [
+                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.'},
+                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.'},
+                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.'},
+                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.'},
+                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.'},
+                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.'},
+              ];
+            }
+          }
+        };
+      }
     }
 
-    window.customElements.define(HomePage.is, HomePage);
+    window.customElements.define(FaqPage.is, FaqPage);
+
   </script>
 </dom-module>

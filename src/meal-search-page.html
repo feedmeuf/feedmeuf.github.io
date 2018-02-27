@@ -38,7 +38,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #search-bar {
         position: relative;
-        top: 30%;
         left: 25%;
         width: 50%;
         color: white;
@@ -67,6 +66,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #login-button.hover {
         background: #3469bc;
+    }
+
+    .result {
+      display: flex;
+      flex-direction: row;
+      margin: 20px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: white;
+    }
+
+    .result-right {
+      display: flex;
+      flex-direction: column;
     }
     
       app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -116,9 +129,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region style='background: linear-gradient(
-          rgba(0, 0, 0, 0.4),
-          rgba(0, 0, 0, 0.4)
-          ), url("../images/homebackground.jpg") no-repeat center center fixed; background-size: cover;'>
+          rgba(150, 150, 150, 0.4),
+          rgba(150, 150, 150, 0.4)
+          )'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
@@ -129,13 +142,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </app-toolbar>
         </app-header>
         <div id='search-bar'>
-            <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
-            <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
             <div id='inputs'>
                 <paper-input label='Search' id='search'></paper-input>
                 <paper-input label='Date'></paper-input>
                 <paper-input label='Guests'></paper-input>
             </div>
+        </div>
+        <div id='search-results'>
+          <h1 style="margin: 20px; text-align: center;">FAQs</h1>
+          <dom-repeat items="{{results}}">
+            <template>
+              <div class='result'>
+                <img src="{{item.img}}" style="width: 200px; height: 200px;">
+                <div class='result-right'>
+                  <h1>{{item.title}}</h1>
+                  <h3 style='font-weight: normal;'>{{item.description}}</h3>
+                </div>
+              </div>
+            </template>
+          </dom-repeat>
         </div>
       </app-header-layout>
     </app-drawer-layout>
@@ -145,6 +170,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class MealSearchPage extends Polymer.Element {
       static get is() { return 'meal-search-page'; }
+      static get properties() {
+        return {
+          results: {
+            value() {
+              return [
+                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.'},
+                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.'},
+              ];
+            }
+          }
+        };
+      }
     }
 
     window.customElements.define(MealSearchPage.is, MealSearchPage);
