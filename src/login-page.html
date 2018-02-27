@@ -54,21 +54,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     
     #search {
-        flex-grow: 1;
-        
+        flex-grow: 1;    
     }
     paper-button {
         text-transform: none;
     }
     
-    #signin-button {
+    #login-button {
         background: orange;
+        width: 100px;
+        height: 45px
     }
-    
+    /*
     #login-button.hover {
         background: #3469bc;
     }
-    
+    */
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
@@ -118,23 +119,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-header-layout has-scrolling-region style='background: linear-gradient(
           rgba(0, 0, 0, 0.4),
           rgba(0, 0, 0, 0.4)
-          ), url("../images/homebackground.jpg") no-repeat center center fixed; background-size: cover;'>
+          ), url("https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2012/10/Food.jpg") no-repeat center center fixed; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
-            <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+            <!-- <paper-button id='login-button'>Login</paper-button>
+            <paper-button raised id='signin-button'>Sign up</paper-button> -->
           </app-toolbar>
         </app-header>
         <div id='search-bar'>
-            <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
+            <h1 style='text-align: center;'>Log in to your FeedMe Account</h1>
             <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
             <div id='inputs'>
-                <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
+                <paper-input label='Username' id='search'></paper-input>
+                <paper-input label='Password' ></paper-input>
+                <paper-button id='login-button'>Login</paper-button>
             </div>
         </div>
       </app-header-layout>
