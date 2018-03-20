@@ -57,18 +57,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: white;
     }
 
+    .meal-info{
+      margin-left: 80px; 
+      margin-right: 80px;
+      padding: 10px;
+      background: #F3F5F7;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 10px;
+
+    }
+
     .content{
         display: flex;
         display: flex;
         flex-direction: row;
-        margin-left: 100px; 
-        margin-right: 100px;
+        margin-left: 20px; 
+        margin-right: 20px;
         margin-bottom: 30px;
+        font-family: "century gothic";
     }
 
     #about-content{
       display: flex;
       flex-direction: column;
+      font-family: "century gothic";
     }
     
     #search {
@@ -77,10 +90,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     paper-button {
         text-transform: none;
+        color: #878B8F;
+        font-family: "century gothic";
     }
     
     #signin-button {
-        background: orange;
+        border-radius: 15px;
+        height: 40px;
+        background: #ADEBCF;
     }
     
     #login-button.hover {
@@ -93,7 +110,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       app-header {
         color: #fff;
-        background-color: var(--app-primary-color);
+        background-color: white;
       }
 
       app-header paper-icon-button {
@@ -130,7 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         tail="{{subroute}}">
     </app-route>
 
-    <app-drawer-layout fullbleed narrow="{{narrow}}">
+    <app-drawer-layout fullbleed narrow="{{narrow}}" style="background: #EBEEF1">
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region style='background: linear-gradient(
@@ -153,30 +170,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <img src="../images/dinner1.jpg" style="height: 400px; width: 550px; margin-right: 10px;">
           <img src="../images/image-1.jpg" style="height: 400px; width: 550px;">
         </div>
-        <div style="margin-left: 100px; margin-right: 100px; margin-bottom: -25px">
-          <h1 style="text-align: left;">Meal Title</h1>
-        </div>
-        <div class="content" style="border-bottom: 2px solid black;">
-           <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Date</p>
-           <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Time</p>
-           <p style="size: 15px; float: left; margin-right: 10px;">Cuisine Type</p>
-           <p style="size: 15px; float: left;">Number of Guests</p>
-        </div>
 
-        <div class="content">
-          <img src="../images/map.png" style="height: 300px; width: 300px;">
-          <div id="about-content" style="margin-left: 20px">
-            <h2 style="text-align: center;">About the Meal</h3>
-            <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
-          </div>
-        </div>
+        <div class="meal-info">
+            <div style="margin-left: 20px; margin-right: 20px; margin-bottom: -25px">
+              <h1 style="text-align: left; font-family: 'century gothic'">Meal Title</h1>
+            </div>
 
-        <div class="content">
-          <div id="about-content" style="margin-right: 20px;">
-            <h2 style="text-align: center;">About the Host</h3>
-            <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
-          </div>
-          <img src="../images/blank-profile-picture.png" style="height: 250px; width: 250px;">   
+            <div class="content" style="border-bottom: 1px solid black;">
+               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Date</p>
+               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Time</p>
+               <p style="size: 15px; float: left; margin-right: 10px;">Cuisine Type</p>
+               <p style="size: 15px; float: left;">Number of Guests</p>
+            </div>
+
+            <div class="content">
+              <img src="../images/map.png" style="height: 250px; width: 250px; margin-right: 15px;">
+              <div id="about-content" style="margin-left: 20px">
+                <h2 style="text-align: center;">About the Meal</h3>
+                <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
+              </div>
+            </div>
+
+            <div class="content">
+              <div id="about-content" style="margin-right: 20px;">
+                <h2 style="text-align: center;">About the Host</h3>
+                <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
+              </div>
+              <img src="../images/blank-profile-picture.png" style="height: 250px; width: 250px; margin-left: 15px;">   
+            </div>
         </div>
     
         
