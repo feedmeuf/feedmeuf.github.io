@@ -25,12 +25,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="page-footer.html">
 
 <dom-module id="meal-search-page">
   <template>
     <style>
       :host {
-        --app-primary-color: none;
+        --app-primary-color: white;
         --app-secondary-color: black;
 
         display: block;
@@ -41,9 +42,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         left: 25%;
         width: 50%;
         color: white;
-        --paper-input-container-color: white;
-        --paper-input-container-focus-color: white;
-        --paper-input-container-input-color: white;
+        background-color: white;
+        border-radius: 10px;
+        padding-left: 10px;
+        --paper-input-container-color: black;
+        --paper-input-container-focus-color: black;
+        --paper-input-container-input-color: black;
     }
     
     #inputs {
@@ -62,6 +66,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     #signin-button {
         background: orange;
+        height: 50px;
+        border-radius: 10px;
+        margin-right: 0;
     }
     
     #login-button.hover {
@@ -136,18 +143,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
             <paper-button id='login-button'>Login</paper-button>
             <paper-button raised id='signin-button'>Sign up</paper-button>
           </app-toolbar>
-        </app-header>
-        <div id='search-bar'>
-            <div id='inputs'>
-                <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
+          <app-toolbar style="padding-bottom: 20px; background: url('../images/image-1.jpg') no-repeat center; background-size: cover; height: 250px;">
+            <div id='search-bar'>
+              <div id='inputs'>
+                <paper-input no-label-float label='Search' id='search'></paper-input>
+                <paper-input no-label-float label='Date'></paper-input>
+                <paper-input no-label-float label='Guests'></paper-input>
+                <paper-button raised id='signin-button'>Search</paper-button>
+              </div>
             </div>
-        </div>
+          </app-toolbar>
+        </app-header>
+
+        
         <div id='search-results'>
           <h1 style="margin: 20px; text-align: center;">FAQs</h1>
           <dom-repeat items="{{results}}">
@@ -162,6 +174,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </template>
           </dom-repeat>
         </div>
+        <page-footer></page-footer>
       </app-header-layout>
     </app-drawer-layout>
     
