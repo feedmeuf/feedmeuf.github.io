@@ -18,10 +18,12 @@
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "paper-input": "PolymerElements/paper-input#^2.1.1",
     "app-datepicker": "^2.11.2",
-    "s-rating": "^0.1.3"
+    "s-rating": "^0.1.3",
+    "paper-menu-button": "PolymerElements/paper-menu-button#^2.1.0"
   },
   "resolutions": {
-    "polymer": "^2.0.0"
+    "polymer": "^2.0.0",
+    "webcomponentsjs": "^v1.1.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0"
