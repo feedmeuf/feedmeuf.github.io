@@ -26,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-icons.html">
-
+<link rel="import" href="page-footer.html">
 <!-- include classes in the main document -->
 
 
@@ -86,10 +86,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     paper-button {
         text-transform: none;
+        color: #878B8F;
+        font-family: "century gothic";
     }
     
     #signin-button {
-        background: orange;
+        border-radius: 15px;
+        height: 40px;
+        background: #ADEBCF;    
     }
 
     .col-25 {
@@ -110,6 +114,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border: 1px solid #ccc;
       border-radius: 4px;
       resize: vertical;
+    }
+
+    .main-content{
+      margin-left: 80px; 
+      margin-right: 80px;
+      margin-top: 20px;
+      padding: 10px;
+      background: #F3F5F7;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 10px;
+      font-family: "century gothic";
     }
 
     label {
@@ -135,9 +151,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
 
-      app-header {
+      app-header { 
         color: #fff;
-        background-color: var(--app-primary-color);
+        background-color: white;
       }
 
       app-header paper-icon-button {
@@ -185,7 +201,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
             <paper-button id='login-button'>Meal Search</paper-button>
             <paper-button id='login-button'>Become a Host</paper-button>
             <paper-button id='login-button'>Login</paper-button>
@@ -193,64 +209,64 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </app-toolbar>
         </app-header>
 
-    
-        <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
-          <h1 style="text-align: center; border-bottom: 2px solid black">Create a Meal</h1>
-        </div>
-      
-
-        <div class="content">
-          <form method="get" action="/form/handler" id="meal-form">
-            <div class="form-content">
-              <label for="fname" class="col-25">First Name</label>
-              <input type="text" id="fname" name="firstname" placeholder="Your first name.." class="col-75">
-            </div>
-            <div class="form-content">
-              <label for="fname" class="col-25">Last Name</label>
-              <input type="text" id="lname" name="lastname" placeholder="Your last name.." class="col-75">
-            </div>
-            <div class="form-content">
-              <label for="description" class="col-25">Description</label>
-              <textarea id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style="height:200px"></textarea>
-            </div>
-            <div class="form-content">
-              <label for="date" class="col-25">Date of Meal</label>
-              <input type="text" id="date" name="date" placeholder="01/01/18" class="col-75">
-            </div>
-            <div class="form-content">
-              <label for="time" class="col-25">Time of Meal</label>
-              <select id="time" name="time" class="col-75">
-                <option value="australia">5:00PM</option>
-                <option value="canada">6:00PM</option>
-                <option value="usa">7:00PM</option>
-                <option value="australia">8:00PM</option>
-                <option value="canada">9:00PM</option>
-                <option value="usa">10:00PM</option>
-                <option value="australia">11:00PM</option>
-              </select>
-            </div>
-            <div class="form-content">
-              <label for="guests" class="col-25">Number of Guests</label>
-              <select id="guests" name="guests" class="col-75">
-                <option value="one">1</option>
-                <option value="two">2</option>
-                <option value="three">3</option>
-                <option value="four">4</option>
-                <option value="five">5</option>
-                <option value="six">6</option>
-                <option value="sixplus">6+</option>
-              </select>
-            </div>
-            <div class="form-content">
-              <label for="guests" class="col-25">Select Image</label>
-            </div>
-            <paper-button raised id='signin-button' style="margin-top: 10px; text-align:center;">Submit</paper-button>
-          </form>
-        </div>
-    
+        <div class="main-content">
+          <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
+            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Create a Meal</h1>
+          </div>
         
-      </app-header-layout>
 
+          <div class="content">
+            <form method="get" action="/form/handler" id="meal-form">
+              <div class="form-content">
+                <label for="fname" class="col-25">First Name</label>
+                <input type="text" id="fname" name="firstname" placeholder="Your first name.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Last Name</label>
+                <input type="text" id="lname" name="lastname" placeholder="Your last name.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="description" class="col-25">Description</label>
+                <textarea id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style="height:200px"></textarea>
+              </div>
+              <div class="form-content">
+                <label for="date" class="col-25">Date of Meal</label>
+                <input type="text" id="date" name="date" placeholder="01/01/18" class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="time" class="col-25">Time of Meal</label>
+                <select id="time" name="time" class="col-75">
+                  <option value="australia">5:00PM</option>
+                  <option value="canada">6:00PM</option>
+                  <option value="usa">7:00PM</option>
+                  <option value="australia">8:00PM</option>
+                  <option value="canada">9:00PM</option>
+                  <option value="usa">10:00PM</option>
+                  <option value="australia">11:00PM</option>
+                </select>
+              </div>
+              <div class="form-content">
+                <label for="guests" class="col-25">Number of Guests</label>
+                <select id="guests" name="guests" class="col-75">
+                  <option value="one">1</option>
+                  <option value="two">2</option>
+                  <option value="three">3</option>
+                  <option value="four">4</option>
+                  <option value="five">5</option>
+                  <option value="six">6</option>
+                  <option value="sixplus">6+</option>
+                </select>
+              </div>
+              <div class="form-content">
+                <label for="guests" class="col-25">Select Image</label>
+              </div>
+              <paper-button raised id='signin-button' style="margin-top: 10px; margin-left: 90px; text-align:center;">Submit</paper-button>
+            </form>
+          </div>
+        </div>
+    
+        <page-footer></page-footer>
+      </app-header-layout>
     </app-drawer-layout>
     
   </template>
