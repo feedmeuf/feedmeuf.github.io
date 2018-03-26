@@ -24,9 +24,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-icons.html">
 
-<dom-module id="signup-page">
+<!-- include classes in the main document -->
+
+
+<dom-module id="create-meal-page">
   <template>
     <style>
       :host {
@@ -46,11 +50,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-input-container-focus-color: white;
         --paper-input-container-input-color: white;
     }
+
+    #meal-form{
+      position: relative;
+      width: 100%;
+    }
     
     #inputs {
         display: flex;
         flex-direction: row;
         color: white;
+    }
+
+    .content{
+        display: flex;
+        display: flex;
+        flex-direction: row;
+        margin-left: 100px; 
+        margin-right: 100px;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+        width: 70%;
+    }
+
+    .form-content{
+      display: flex;
+      flex-direction: horizontal;
+      position: relative;
     }
     
     #search {
@@ -59,10 +86,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     paper-button {
         text-transform: none;
+        color: #878B8F;
+        font-family: "century gothic";
     }
     
     #signin-button {
-        background: orange;
+        border-radius: 15px;
+        height: 40px;
+        background: #ADEBCF;    
+    }
+
+    .col-25 {
+        float: left;
+        width: 25%;
+        margin-top: 6px;
+    }
+
+    .col-75 {
+        float:left;
+        margin-top: 6px;
+        margin-bottom: 2px;
+    }
+
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .main-content{
+      margin-left: 80px; 
+      margin-right: 80px;
+      margin-top: 20px;
+      padding: 10px;
+      background: #F3F5F7;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 10px;
+      font-family: "century gothic";
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
     }
     
     #login-button.hover {
@@ -73,9 +151,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
 
-      app-header {
+      app-header { 
         color: #fff;
-        background-color: var(--app-primary-color);
+        background-color: white;
       }
 
       app-header paper-icon-button {
@@ -116,37 +194,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region style='background: linear-gradient(
-          rgba(0, 0, 0, 0.4),
-          rgba(0, 0, 0, 0.4)
-          ), url("../images/homebackground.jpg") no-repeat center center fixed; background-size: cover;'>
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.2)
+          ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+            <paper-button id='login-button'>Meal Search</paper-button>
+            <paper-button id='login-button'>Become a Host</paper-button>
             <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+            <paper-button raised id='signin-button'>Sign Out</paper-button>
           </app-toolbar>
         </app-header>
-        <div id='search-bar'>
-            <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
-            <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
-            <div id='inputs'>
-                <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
-            </div>
+
+        <div class="main-content">
+          <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
+            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Contact Us</h1>
+          </div>
+        
+
+          <div class="content">
+            <form method="get" action="/form/handler" id="meal-form">
+              <div class="form-content">
+                <label for="fname" class="col-25">First Name:</label>
+                <input type="text" id="fname" name="firstname" placeholder="First Name.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Last Name:</label>
+                <input type="text" id="fname" name="lastname" placeholder="Last Name.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Email:</label>
+                <input type="text" id="fname" name="email" placeholder="Email.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Subject:</label>
+                <input type="text" id="fname" name="email" placeholder="Why you are emailing.." class="col-75">
+              </div> 
+              <div class="form-content">
+                <label for="description" class="col-25">Contents:</label>
+                <textarea id="description" name="description" placeholder="Write something you would like to tell us.."  class="col-75" style="height:200px"></textarea>
+              </div>
+              <paper-button raised id='signin-button' style="margin-top: 10px; margin-left: 150px; text-align:center;">Submit</paper-button>
+            </form>
+          </div>
         </div>
+    
+        
       </app-header-layout>
+
     </app-drawer-layout>
     
   </template>
 
   <script>
-    class SignupPage extends Polymer.Element {
-      static get is() { return 'signup-page'; }
+    class CreateMealPage extends Polymer.Element {
+      static get is() { return 'create-meal-page'; }
     }
 
-    window.customElements.define(SignupPage.is, SignupPage);
+    window.customElements.define(CreateMealPage.is, CreateMealPage);
   </script>
 </dom-module>
