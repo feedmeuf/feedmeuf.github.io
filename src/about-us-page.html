@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!-- include classes in the main document -->
 
 
-<dom-module id="create-meal-page">
+<dom-module id="about-us-page">
   <template>
     <style>
       :host {
@@ -95,53 +95,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 40px;
         background: #ADEBCF;    
     }
-
-    .col-25 {
-        float: left;
-        width: 25%;
-        margin-top: 6px;
-    }
-
-    .col-75 {
-        float:left;
-        margin-top: 6px;
-        margin-bottom: 2px;
-    }
-
-    input[type=text], select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      resize: vertical;
-    }
-
-    .main-content{
-      margin-left: 80px; 
-      margin-right: 80px;
-      margin-top: 20px;
-      padding: 10px;
-      background: #F3F5F7;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      margin-bottom: 10px;
-      font-family: "century gothic";
-    }
-
-    label {
-      padding: 12px 12px 12px 0;
-      display: inline-block;
-    }
-
-    input[type=submit] {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      float: right;
-    }
     
     #login-button.hover {
         background: #3469bc;
@@ -176,6 +129,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black;
         font-weight: bold;
       }
+
+      #newbeginning{
+        width: 70%;
+        left: 15%;
+        position: relative;
+        text-align: justify;
+      }
+      #teams{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 80%;
+        left: 10%;
+      }
+      .team{
+        display: flex;
+        flex-direction: row;
+      }
+      .member{
+        
+        flex-grow: 1;
+        text-align: center;
+      }
+      .member img{
+        border-radius: 50%;
+        height: 160px;
+        width: 160px;
+
+      }
+      .member h2{
+        color: #6beab1;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .member p{
+        color: #878B8F;
+        margin-top: 0;
+      }
     </style>
 
     <app-location
@@ -193,10 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed narrow="{{narrow}}">
 
       <!-- Main content -->
-      <app-header-layout has-scrolling-region style='background: linear-gradient(
-          rgba(0, 0, 0, 0.2),
-          rgba(0, 0, 0, 0.2)
-          ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
+      <app-header-layout has-scrolling-region style='background-color: white;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
@@ -208,74 +196,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-button raised id='signin-button'>Sign Out</paper-button>
           </app-toolbar>
         </app-header>
-
-        <div class="main-content">
-          <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
-            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Create a Meal</h1>
-          </div>
-        
-
-          <div class="content">
-            <form method="get" action="/form/handler" id="meal-form">
-              <div class="form-content">
-                <label for="fname" class="col-25">First Name</label>
-                <input type="text" id="fname" name="firstname" placeholder="Your first name.." class="col-75">
-              </div>
-              <div class="form-content">
-                <label for="fname" class="col-25">Last Name</label>
-                <input type="text" id="lname" name="lastname" placeholder="Your last name.." class="col-75">
-              </div>
-              <div class="form-content">
-                <label for="description" class="col-25">Description</label>
-                <textarea id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style="height:200px"></textarea>
-              </div>
-              <div class="form-content">
-                <label for="date" class="col-25">Date of Meal</label>
-                <input type="text" id="date" name="date" placeholder="01/01/18" class="col-75">
-              </div>
-              <div class="form-content">
-                <label for="time" class="col-25">Time of Meal</label>
-                <select id="time" name="time" class="col-75">
-                  <option value="australia">5:00PM</option>
-                  <option value="canada">6:00PM</option>
-                  <option value="usa">7:00PM</option>
-                  <option value="australia">8:00PM</option>
-                  <option value="canada">9:00PM</option>
-                  <option value="usa">10:00PM</option>
-                  <option value="australia">11:00PM</option>
-                </select>
-              </div>
-              <div class="form-content">
-                <label for="guests" class="col-25">Number of Guests</label>
-                <select id="guests" name="guests" class="col-75">
-                  <option value="one">1</option>
-                  <option value="two">2</option>
-                  <option value="three">3</option>
-                  <option value="four">4</option>
-                  <option value="five">5</option>
-                  <option value="six">6</option>
-                  <option value="sixplus">6+</option>
-                </select>
-              </div>
-              <div class="form-content">
-                <label for="guests" class="col-25">Select Image</label>
-              </div>
-              <paper-button raised id='signin-button' style="margin-top: 10px; margin-left: 90px; text-align:center;">Submit</paper-button>
-            </form>
+        <div id="newbeginning">
+          <h2 style="text-align: center; font-weight: normal;">A NEW BEGINNING</h2>
+          <div class="newbeginningtext">
+            <p>During his trip to Peru, Jean-Michel befriended a local family who invited him to their home for dinner. Meanwhile, Camille was living in Asia, exploring China and learning about local cuisine and culture. After crossing paths and sharing travel stories, they realized their common passions for authentic food and immersive tourism. In 2014, they embarked on a journey to change the way people travel, one food experience at a time. Today, our team is a mix of product thinkers, community builders, engineers, food lovers and creatives working across offices in Paris, Barcelona, Tel Aviv, San Francisco, and London. We believe there is nothing more special than breaking bread with new friends, and we love spreading the magic of social dining to our growing community.</p>
           </div>
         </div>
+      </div>
+      <div id="meettheteam">
+        <h2 style="text-align: center; font-weight: normal;">MEET THE TEAM</h2>
+        <div id='teams'>
+          <div class="team">
+            <div class="member">
+              <img src="../images/evan.jpg">
+              <h2>EVAN</h2> 
+              <p>Scrum Master</p>          
+            </div>
+            <div class="member">
+              <img src="../images/christie.jpg">
+              <h2>CHRISTIE</h2> 
+              <p>Front End Developer</p>
+            </div>
+            <div class="member">
+              <img src="../images/esteban.jpg">
+              <h2>ESTEBAN</h2> 
+              <p>Front End Developer</p>
+            </div>
+          </div>
+          <div class="team">
+            <div class="member">
+              <img src="../images/jeffrey.jpg">
+              <h2>JEFFREY</h2> 
+              <p>Data Architect</p>          
+            </div>
+            <div class="member">
+              <img src="../images/swathi.jpg">
+              <h2>SWATHI</h2> 
+              <p>Front End Developer</p>
+            </div>
+            <div class="member">
+              <img src="../images/andrew.jpg">
+              <h2>ANDREW</h2> 
+              <p>Back End Developer</p>
+            </div>
+          </div>
+        </div>
+      </div>
     
         <page-footer></page-footer>
       </app-header-layout>
+      
+      
     </app-drawer-layout>
     
   </template>
 
   <script>
-    class CreateMealPage extends Polymer.Element {
-      static get is() { return 'create-meal-page'; }
+    class AboutUsPage extends Polymer.Element {
+      static get is() { return 'about-us-page'; }
     }
 
-    window.customElements.define(CreateMealPage.is, CreateMealPage);
+    window.customElements.define(AboutUsPage.is, AboutUsPage);
   </script>
 </dom-module>

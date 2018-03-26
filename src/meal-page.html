@@ -26,6 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="page-footer.html">
 
 <!-- include classes in the main document -->
 
@@ -158,7 +159,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
             <paper-button id='login-button'>Meal Search</paper-button>
             <paper-button id='login-button'>Become a Host</paper-button>
             <paper-button id='login-button'>Login</paper-button>
@@ -200,9 +201,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
         </div>
     
-        
+        <page-footer></page-footer>
       </app-header-layout>
-
+      
     </app-drawer-layout>
     
   </template>
