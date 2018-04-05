@@ -18,6 +18,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>My App</title>
     <meta name="description" content="My App description">
 
+
+    <platinum-sw-register
+    auto-register
+    skip-waiting
+    clients-claim
+    reload-on-install
+    href="sw-import.js">
+  <platinum-sw-cache
+      default-cache-strategy="networkFirst">
+  </platinum-sw-cache>
+</platinum-sw-register>
+<firebase-app
+    name= "FeedMe" 
+    api-key= "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo"
+    auth-domain= "feedme-88e81.firebaseapp.com"
+    database-url= "https://feedme-88e81.firebaseio.com"
+    project-id= "feedme-88e81"
+    storage-bucket= "feedme-88e81.appspot.com"
+    messaging-sender-id= "1043222446438"
+    </firebase-app>
     <!--
       The `<base>` tag below is present to support two advanced deployment options:
       1) Differential serving. 2) Serving from a non-root path.
@@ -86,6 +106,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="bower_components/web-animations-js/web-animations.min.js"></script>
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-elements.html">
+    <link rel="import" href="bower_components/polymerfire/firebase-app.html">
+    <link rel="import" href="note-app.html">
 
     <!-- Load your application shell -->
     <link rel="import" href="src/my-app.html">

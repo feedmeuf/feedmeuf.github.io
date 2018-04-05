@@ -166,7 +166,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
-            
+            <firebase-auth
+            id="auth"
+            app-name="FeedMe"
+           provider="facebook">
+          </firebase-auth>
             <paper-button id='login-button' onclick='FB.login()'>Login</paper-button>
             <paper-button raised id='signin-button'>Sign up</paper-button>
           </app-toolbar>
