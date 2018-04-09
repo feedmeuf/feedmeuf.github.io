@@ -26,6 +26,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
+<script src="bower_components/firebaseui/dist/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="bower_components/firebaseui/dist/firebaseui.css" />
 
 <dom-module id="home-page">
   <template>
@@ -36,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         display: block;
       }
-    
+   
     #search-bar {
         position: relative;
         top: 30%;
@@ -168,12 +170,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
             <firebase-auth
                 id="auth"
-                app-name="notes"
+                app-name="feedMe"
                 provider="google"
                 signed-in="{{signedIn}}"
                 user="{{user}}">
             </firebase-auth>
-            <paper-button id='login-button' onclick='FB.login()'>Login</paper-button>
+
+            <paper-button id='login-button' on-tap="signIn">Login</paper-button>
             <paper-button raised id='signin-button'>Sign up</paper-button>
           </app-toolbar>
         </app-header>
@@ -233,6 +236,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     window.customElements.define(HomePage.is, HomePage);
   </script>
+
+  <script>
+  Polymer({
+    is: 'home-page',
+
+    //behaviors: [Polymer.NoteAppBehavior],
+
+    signIn: function() {
+      this.$.auth.signInWithPopup();
+    }
+  });
+</script>
   <!-- <script>
     FB.login(function(response) {
       // handle the response
