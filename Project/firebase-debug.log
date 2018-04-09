@@ -1,32 +1,7 @@
-[debug] [2018-04-09T20:00:56.734Z] ----------------------------------------------------------------------
-[debug] [2018-04-09T20:00:56.737Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2018-04-09T20:00:56.737Z] CLI Version:   3.18.2
-[debug] [2018-04-09T20:00:56.737Z] Platform:      darwin
-[debug] [2018-04-09T20:00:56.737Z] Node Version:  v6.10.3
-[debug] [2018-04-09T20:00:56.738Z] Time:          Mon Apr 09 2018 16:00:56 GMT-0400 (EDT)
-[debug] [2018-04-09T20:00:56.738Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2018-04-09T20:00:56.754Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-04-09T20:00:56.754Z] > authorizing via signed-in user
-[debug] [2018-04-09T20:00:56.756Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/feedme-88e81  
-  
- Mon Apr 09 2018 16:00:56 GMT-0400 (EDT)
-[debug] [2018-04-09T20:00:57.132Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-09T20:00:57.134Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/feedme-88e81/tokens  
-  
- Mon Apr 09 2018 16:00:57 GMT-0400 (EDT)
-[debug] [2018-04-09T20:00:57.485Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-09T20:00:57.486Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/feedme-88e81  
-  
- Mon Apr 09 2018 16:00:57 GMT-0400 (EDT)
-[debug] [2018-04-09T20:00:57.719Z] <<< HTTP RESPONSE 200
+
 [info] 
 [info] === Serving from '/Users/Esteban/Documents/feedmeuf.github.io/Project'...
 [info] 
-[debug] [2018-04-09T20:00:57.723Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1043222446438/clients/_:getWebAppConfig  
-  
- Mon Apr 09 2018 16:00:57 GMT-0400 (EDT)
-[debug] [2018-04-09T20:00:57.988Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: public
 [info] ✔  hosting: Local server: http://localhost:5000
 
