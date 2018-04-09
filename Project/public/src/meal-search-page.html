@@ -1,1 +1,253 @@
-<html><head></head><body><div hidden="" by-polymer-bundler=""><link rel="import" href="shared-styles.html"><link rel="import" href="page-footer.html"><link rel="import" href="my-icons.html"></div><dom-module id="meal-search-page"><template><style>:host{--app-primary-color:white;--app-secondary-color:black;display:block;}#search-bar{position:relative;left:25%;width:50%;color:white;background-color:white;border-radius:5px;padding-left:10px;--paper-input-container-color:black;--paper-input-container-focus-color:black;--paper-input-container-input-color:black;}#inputs{display:flex;flex-direction:row;color:white;--paper-input-container-input:{font-size:16px;};}#search{flex-grow:1;}#searchbutton{border-top-left-radius:0;border-bottom-left-radius:0;}paper-button{text-transform:none;}.signin-button{color:#878B8F;background:#ADEBCF;height:50px;border-radius:5px;margin-right:0;}#searchbutton{border-top-left-radius:0;border-bottom-left-radius:0;}#login-button.hover{background:#3469bc;}.result{display:flex;flex-direction:row;margin:20px;border-radius:5px;background-color:white;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);max-height:200px;}.result-right{display:flex;flex-direction:column;position:relative;width:100%;margin:10px;}#search-results{position:relative;width:50%;overflow-y:scroll;height:100%;}app-drawer-layout:not([narrow]) [drawer-toggle]{display:none;}app-header{color:#fff;background-color:var(--app-primary-color);}app-header paper-icon-button{--paper-icon-button-ink-color:white;}.drawer-list{margin:0 20px;}.drawer-list a{display:block;padding:0 16px;text-decoration:none;color:var(--app-secondary-color);line-height:40px;}.drawer-list a.iron-selected{color:black;font-weight:bold;}#mealprice{position:absolute;right:0;bottom:0;margin:0 5px 5px 0;border-radius:5px;padding:3px;background-color:white;}.hostandtype{color:#6beab1;}</style><app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location><app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route><app-drawer-layout fullbleed="" narrow="{{narrow}}"><app-header-layout has-scrolling-region="" style="background-color: #F6F6F6;"><app-header slot="header" condenses="" reveals="" effects="waterfall"><app-toolbar><paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button><div main-title=""><img src="../images/feedmelogo-color.png" style="height:40px;"></div><paper-button id="login-button">Login</paper-button><paper-button raised="" class="signin-button">Sign up</paper-button></app-toolbar><app-toolbar style="padding-bottom: 20px; background: url('../images/image-1.jpg') no-repeat center; background-size: cover; height: 200px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><div id="search-bar"><div id="inputs"><paper-input no-label-float="" label="Search" id="search"></paper-input><paper-input no-label-float="" label="Date"></paper-input><paper-input no-label-float="" label="Guests"></paper-input><paper-button raised="" class="signin-button" id="searchbutton">Search</paper-button></div></div></app-toolbar></app-header><div style="display: flex; flex-direction: row; height: 90vh"><div id="search-results"><dom-repeat items="{{results}}"><template><div class="result"><div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url({{item.img}}); border-bottom-left-radius: 5px; border-top-left-radius: 5px;"><img src="../images/unpressed-star.png" style="height: 20px; width: 20px; margin: 5px;"><div id="mealprice">$100</div></div><div class="result-right"><h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.title}}</h2><p style="position: absolute;right: 0;margin-top: 0;">DDD, 00 MMM</p><p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.host}}</span> for <span style="font-weight: bold;">{{item.mealtype}}</span>!</p><p style="font-weight: normal; margin: 0;">{{item.description}}</p><s-rating value="4" disabled="" style="position: absolute; bottom: 0;"></s-rating></div></div></template></dom-repeat></div><img src="../images/map.jpg" style="width: 50%; height: 100%;"></div><page-footer></page-footer></app-header-layout></app-drawer-layout></template><script>var MealSearchPage=function(a){function b(){return babelHelpers.classCallCheck(this,b),babelHelpers.possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).apply(this,arguments))}return babelHelpers.inherits(b,a),babelHelpers.createClass(b,null,[{key:'is',get:function(){return'meal-search-page'}},{key:'properties',get:function(){return{results:{value:function(){return[{img:'../images/200x200.jpg',title:'Alfredo Pasta',description:'Slow cooked Pasta with Alfredo Sauce.',host:'Mir',mealtype:'Lunch'},{img:'../images/200x200.jpg',title:'Steak with Mushrooms',description:'IDK rn pls send help.',host:'Mir',mealtype:'Lunch'},{img:'../images/200x200.jpg',title:'Alfredo Pasta',description:'Slow cooked Pasta with Alfredo Sauce.',host:'Mir',mealtype:'Lunch'},{img:'../images/200x200.jpg',title:'Steak with Mushrooms',description:'IDK rn pls send help.',host:'Mir',mealtype:'Lunch'},{img:'../images/200x200.jpg',title:'Alfredo Pasta',description:'Slow cooked Pasta with Alfredo Sauce.',host:'Mir',mealtype:'Lunch'},{img:'../images/200x200.jpg',title:'Steak with Mushrooms',description:'IDK rn pls send help.',host:'Mir',mealtype:'Lunch'}]}}}}}]),b}(Polymer.Element);window.customElements.define(MealSearchPage.is,MealSearchPage);</script></dom-module></body></html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/s-rating/s-rating.html">
+<link rel="import" href="my-icons.html">
+<link rel="import" href="page-footer.html">
+
+<dom-module id="meal-search-page">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: white;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+    
+    #search-bar {
+        position: relative;
+        left: 25%;
+        width: 50%;
+        color: white;
+        background-color: white;
+        border-radius: 5px;
+        padding-left: 10px;
+        --paper-input-container-color: black;
+        --paper-input-container-focus-color: black;
+        --paper-input-container-input-color: black;
+    }
+    
+    #inputs {
+        display: flex;
+        flex-direction: row;
+        color: white;
+        --paper-input-container-input: {
+          font-size: 16px;
+        };
+    }
+    
+    #search {
+        flex-grow: 1;
+        
+    }
+
+    #searchbutton{
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    paper-button {
+        text-transform: none;
+    }
+    
+    .signin-button {
+      color: #878B8F;
+        background: #ADEBCF;  
+        height: 50px;
+        border-radius: 5px;
+        margin-right: 0;
+    }
+    #searchbutton{
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    #login-button.hover {
+        background: #3469bc;
+    }
+
+    .result {
+      display: flex;
+      flex-direction: row;
+      margin: 20px;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      
+      max-height: 200px;
+    }
+
+    .result-right {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+      margin: 10px;
+    }
+
+    #search-results{
+      position: relative;
+      width: 50%;
+      overflow-y: scroll;
+      height: 100%;
+    }
+    
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+
+      #mealprice{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 0 5px 5px 0;
+        border-radius: 5px;
+        padding: 3px;
+        background-color: white;
+      }
+      .hostandtype{
+        color: #6beab1;
+      }
+    </style>
+
+    <app-location
+        route="{{route}}"
+        url-space-regex="^[[rootPath]]">
+    </app-location>
+
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}">
+    </app-route>
+
+    <app-drawer-layout fullbleed narrow="{{narrow}}">
+
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region style='background-color: #F6F6F6;'>
+
+        <app-header slot="header" condenses reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
+            <paper-button id='login-button'>Login</paper-button>
+            <paper-button raised class='signin-button'>Sign up</paper-button>
+          </app-toolbar>
+          <app-toolbar style="padding-bottom: 20px; background: url('../images/image-1.jpg') no-repeat center; background-size: cover; height: 200px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div id='search-bar'>
+              <div id='inputs'>
+                <paper-input no-label-float label='Search' id='search'></paper-input>
+                <paper-input no-label-float label='Date'></paper-input>
+                <paper-input no-label-float label='Guests'></paper-input>
+                <paper-button raised class='signin-button' id='searchbutton'>Search</paper-button>
+              </div>
+            </div>
+          </app-toolbar>
+        </app-header>
+
+        <div style="display: flex; flex-direction: row; height: 90vh">
+        <div id='search-results'>
+
+          <dom-repeat items="{{results}}">
+            <template>
+              <div class='result'>
+                <!-- <img src="{{item.img}}" style="width: 200px; height: 200px; margin-right: 10px;"> -->
+                <div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url({{item.img}}); border-bottom-left-radius: 5px; border-top-left-radius: 5px;">
+                <img src="../images/unpressed-star.png" style="height: 20px; width: 20px; margin: 5px;">
+                  <div id="mealprice">
+                    $100
+                  </div>
+                </div>
+                <div class='result-right'>
+                  <h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.title}}</h2>
+                  <p style="position: absolute;right: 0;margin-top: 0;">DDD, 00 MMM</p>
+                  <p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.host}}</span> for <span style="font-weight: bold;">{{item.mealtype}}</span>!</p>
+                  <p style='font-weight: normal; margin: 0;'>{{item.description}}</p>
+                  <s-rating value='4' disabled style="position: absolute; bottom: 0;"></s-rating>
+                </div>
+              </div>
+            </template>
+          </dom-repeat>
+        </div>
+        <img src="../images/map.jpg" style="width: 50%; height: 100%;">
+        </div>
+        <page-footer></page-footer>
+      </app-header-layout>
+    </app-drawer-layout>
+    
+  </template>
+
+  <script>
+    class MealSearchPage extends Polymer.Element {
+      static get is() { return 'meal-search-page'; }
+      static get properties() {
+        return {
+          results: {
+            value() {
+              return [
+                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
+                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
+                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
+                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
+                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
+                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
+              ];
+            }
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MealSearchPage.is, MealSearchPage);
+  </script>
+</dom-module>

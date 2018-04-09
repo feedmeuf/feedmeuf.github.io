@@ -1,4 +1,263 @@
-<html><head></head><body><div hidden="" by-polymer-bundler=""><link rel="import" href="shared-styles.html"><link rel="import" href="page-footer.html"><link rel="import" href="my-icons.html"></div><dom-module id="login-page"><template><style>:host{--app-primary-color:none;--app-secondary-color:black;display:block;}#search-bar{position:relative;top:30%;left:25%;width:50%;color:white;--paper-input-container-color:white;--paper-input-container-focus-color:white;--paper-input-container-input-color:white;}#meal-form{position:relative;width:100%;}#inputs{display:flex;flex-direction:row;color:white;}.content{display:flex;display:flex;flex-direction:row;margin-left:100px;margin-right:100px;margin-bottom:30px;text-align:center;position:relative;width:70%;}.form-content{display:flex;flex-direction:horizontal;position:relative;}#search{flex-grow:1;}paper-button{text-transform:none;color:#878B8F;font-family:"century gothic";}#signin-button{border-radius:5px;height:40px;background:#ADEBCF;color:#878B8F;}.col-25{float:left;width:25%;margin-top:6px;}.col-75{float:left;margin-top:6px;margin-bottom:2px;}input[type=text], select, textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:4px;resize:vertical;}.main-content{margin-left:80px;margin-right:80px;margin-top:20px;padding:10px;background:#F3F5F7;border-radius:5px;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-bottom:10px;font-family:"century gothic";}label{padding:12px 12px 12px 0;display:inline-block;}input[type=submit]{background-color:#4CAF50;color:white;padding:12px 20px;border:none;border-radius:4px;cursor:pointer;float:right;}#login-button.hover{background:#3469bc;}app-drawer-layout:not([narrow]) [drawer-toggle]{display:none;}app-header{color:#fff;background-color:white;}app-header paper-icon-button{--paper-icon-button-ink-color:white;}.drawer-list{margin:0 20px;}.drawer-list a{display:block;padding:0 16px;text-decoration:none;color:var(--app-secondary-color);line-height:40px;}.drawer-list a.iron-selected{color:black;font-weight:bold;}</style><app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location><app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route><app-drawer-layout fullbleed="" narrow="{{narrow}}"><app-header-layout has-scrolling-region="" style="background: linear-gradient(
+<!--<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="my-icons.html">
+<link rel="import" href="page-footer.html">
+<!-- include classes in the main document -->
+
+
+<dom-module id="login-page">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: none;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+    
+    #search-bar {
+        position: relative;
+        top: 30%;
+        left: 25%;
+        width: 50%;
+        color: white;
+        --paper-input-container-color: white;
+        --paper-input-container-focus-color: white;
+        --paper-input-container-input-color: white;
+    }
+
+    #meal-form{
+      position: relative;
+      width: 100%;
+    }
+    
+    #inputs {
+        display: flex;
+        flex-direction: row;
+        color: white;
+    }
+
+    .content{
+        display: flex;
+        display: flex;
+        flex-direction: row;
+        margin-left: 100px; 
+        margin-right: 100px;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+        width: 70%;
+    }
+
+    .form-content{
+      display: flex;
+      flex-direction: horizontal;
+      position: relative;
+    }
+    
+    #search {
+        flex-grow: 1;
+        
+    }
+    paper-button {
+        text-transform: none;
+        color: #878B8F;
+        font-family: "century gothic";
+    }
+    
+    #signin-button {
+        border-radius: 5px;
+        height: 40px;
+        background: #ADEBCF; 
+        color: #878B8F;   
+    }
+
+    .col-25 {
+        float: left;
+        width: 25%;
+        margin-top: 6px;
+    }
+
+    .col-75 {
+        float:left;
+        margin-top: 6px;
+        margin-bottom: 2px;
+    }
+
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .main-content{
+      margin-left: 80px; 
+      margin-right: 80px;
+      margin-top: 20px;
+      padding: 10px;
+      background: #F3F5F7;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      margin-bottom: 10px;
+      font-family: "century gothic";
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+    
+    #login-button.hover {
+        background: #3469bc;
+    }
+    
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-header { 
+        color: #fff;
+        background-color: white;
+      }
+
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+    </style>
+
+    <app-location
+        route="{{route}}"
+        url-space-regex="^[[rootPath]]">
+    </app-location>
+
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}">
+    </app-route>
+
+    <app-drawer-layout fullbleed narrow="{{narrow}}">
+
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region style='background: linear-gradient(
           rgba(0, 0, 0, 0.2),
           rgba(0, 0, 0, 0.2)
-          ), url(&quot;../images/backgrond.png&quot;) no-repeat center center fixed; background-size: cover;"><app-header slot="header" condenses="" reveals="" effects="waterfall"><app-toolbar><paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button><div main-title=""><img src="../images/feedmelogo-color.png" style="height:40px;"></div><paper-button id="login-button">Meal Search</paper-button><paper-button id="login-button">Become a Host</paper-button><paper-button id="login-button">Login</paper-button><paper-button raised="" id="signin-button">Sign Out</paper-button></app-toolbar></app-header><div class="main-content"><div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px"><h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Become A Host</h1></div><div class="content"><form method="get" action="/form/handler" id="meal-form"><div class="form-content"><label for="fname" class="col-25">Home Address</label><input type="text" id="fname" name="firstname" placeholder="Address.." class="col-75"></div><div class="form-content"><label for="fname" class="col-25">Home City</label><input type="text" id="lname" name="lastname" placeholder="City.." class="col-75"></div><div class="form-content"><label for="fname" class="col-25">Home State</label><input type="text" id="lname" name="lastname" placeholder="State.." class="col-75"></div><div class="form-content"><label for="guests" class="col-25">Number of Guests</label><select id="guests" name="guests" class="col-75"><option value="one">1</option><option value="two">2</option><option value="three">3</option><option value="four">4</option><option value="five">5</option><option value="six">6</option><option value="sixplus">6+</option></select></div><paper-button raised="" id="signin-button" style="margin-top: 10px; margin-left: 130px; text-align:center;">Submit</paper-button></form></div></div><page-footer></page-footer></app-header-layout></app-drawer-layout></template><script>var LoginPage=function(a){function b(){return babelHelpers.classCallCheck(this,b),babelHelpers.possibleConstructorReturn(this,(b.__proto__||Object.getPrototypeOf(b)).apply(this,arguments))}return babelHelpers.inherits(b,a),babelHelpers.createClass(b,null,[{key:'is',get:function(){return'login-page'}}]),b}(Polymer.Element);window.customElements.define(LoginPage.is,LoginPage);</script></dom-module></body></html>
+          ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
+
+        <app-header slot="header" condenses reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
+            <paper-button id='login-button'>Meal Search</paper-button>
+            <paper-button id='login-button'>Become a Host</paper-button>
+            <paper-button id='login-button'>Login</paper-button>
+            <paper-button raised id='signin-button'>Sign Out</paper-button>
+          </app-toolbar>
+        </app-header>
+
+        <div class="main-content">
+          <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
+            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Become A Host</h1>
+          </div>
+        
+
+          <div class="content">
+            <form method="get" action="/form/handler" id="meal-form">
+              <div class="form-content">
+                <label for="fname" class="col-25">Home Address</label>
+                <input type="text" id="fname" name="firstname" placeholder="Address.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Home City</label>
+                <input type="text" id="lname" name="lastname" placeholder="City.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="fname" class="col-25">Home State</label>
+                <input type="text" id="lname" name="lastname" placeholder="State.." class="col-75">
+              </div>
+              <div class="form-content">
+                <label for="guests" class="col-25">Number of Guests</label>
+                <select id="guests" name="guests" class="col-75">
+                  <option value="one">1</option>
+                  <option value="two">2</option>
+                  <option value="three">3</option>
+                  <option value="four">4</option>
+                  <option value="five">5</option>
+                  <option value="six">6</option>
+                  <option value="sixplus">6+</option>
+                </select>
+              </div>
+              <paper-button raised id='signin-button' style="margin-top: 10px; margin-left: 130px; text-align:center;">Submit</paper-button>
+            </form>
+          </div>
+        </div>
+    
+        <page-footer></page-footer>
+      </app-header-layout>
+    </app-drawer-layout>
+    
+  </template>
+
+  <script>
+    class LoginPage extends Polymer.Element {
+      static get is() { return 'login-page'; }
+    }
+
+    window.customElements.define(LoginPage.is, LoginPage);
+  </script>
+</dom-module>
