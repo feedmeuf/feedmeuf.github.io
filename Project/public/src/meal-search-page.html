@@ -25,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/s-rating/s-rating.html">
+<link rel="import" href="../components/polymerfire/firebase-document.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -198,21 +199,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div style="display: flex; flex-direction: row; height: 90vh">
         <div id='search-results'>
 
-          <dom-repeat items="{{results}}">
+          <firebase-document
+          path="/Meals"
+          data="{{Meals}}">
+          </firebase-document>
+          <dom-repeat items="{{Meals}}">
             <template>
               <div class='result'>
                 <!-- <img src="{{item.img}}" style="width: 200px; height: 200px; margin-right: 10px;"> -->
-                <div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url({{item.img}}); border-bottom-left-radius: 5px; border-top-left-radius: 5px;">
+                <div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url({{item.Image}}); border-bottom-left-radius: 5px; border-top-left-radius: 5px;">
                 <img src="../images/unpressed-star.png" style="height: 20px; width: 20px; margin: 5px;">
                   <div id="mealprice">
                     $100
                   </div>
                 </div>
                 <div class='result-right'>
-                  <h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.title}}</h2>
+                  <h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.Name}}</h2>
                   <p style="position: absolute;right: 0;margin-top: 0;">DDD, 00 MMM</p>
-                  <p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.host}}</span> for <span style="font-weight: bold;">{{item.mealtype}}</span>!</p>
-                  <p style='font-weight: normal; margin: 0;'>{{item.description}}</p>
+                  <p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.Host}}</span> for <span style="font-weight: bold;">{{item.Mealtype}}</span>!</p>
+                  <p style='font-weight: normal; margin: 0;'>{{item.Description}}</p>
                   <s-rating value='4' disabled style="position: absolute; bottom: 0;"></s-rating>
                 </div>
               </div>
