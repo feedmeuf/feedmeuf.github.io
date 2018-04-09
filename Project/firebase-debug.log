@@ -1,32 +1,7 @@
-[debug] [2018-04-09T20:00:15.709Z] ----------------------------------------------------------------------
-[debug] [2018-04-09T20:00:15.713Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Gruda\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
-[debug] [2018-04-09T20:00:15.713Z] CLI Version:   3.18.0
-[debug] [2018-04-09T20:00:15.713Z] Platform:      win32
-[debug] [2018-04-09T20:00:15.713Z] Node Version:  v8.10.0
-[debug] [2018-04-09T20:00:15.713Z] Time:          Mon Apr 09 2018 16:00:15 GMT-0400 (Eastern Daylight Time)
-[debug] [2018-04-09T20:00:15.713Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2018-04-09T20:00:15.725Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-04-09T20:00:15.725Z] > authorizing via signed-in user
-[debug] [2018-04-09T20:00:15.729Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/feedme-88e81  
-  
- Mon Apr 09 2018 16:00:15 GMT-0400 (Eastern Daylight Time)
-[debug] [2018-04-09T20:00:16.069Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-09T20:00:16.073Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/feedme-88e81/tokens  
-  
- Mon Apr 09 2018 16:00:16 GMT-0400 (Eastern Daylight Time)
-[debug] [2018-04-09T20:00:16.427Z] <<< HTTP RESPONSE 200
-[debug] [2018-04-09T20:00:16.427Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/feedme-88e81  
-  
- Mon Apr 09 2018 16:00:16 GMT-0400 (Eastern Daylight Time)
-[debug] [2018-04-09T20:00:16.825Z] <<< HTTP RESPONSE 200
+
 [info] 
-[info] === Serving from 'C:\Users\Gruda\Desktop\feedmeuf.github.io-master\Project'...
+[info] === Serving from '/Users/Esteban/Documents/feedmeuf.github.io/Project'...
 [info] 
-[debug] [2018-04-09T20:00:16.837Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1043222446438/clients/_:getWebAppConfig  
-  
- Mon Apr 09 2018 16:00:16 GMT-0400 (Eastern Daylight Time)
-[debug] [2018-04-09T20:00:17.522Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: public
-[info] +  hosting: Local server: http://localhost:5000
+[info] ✔  hosting: Local server: http://localhost:5000
 
