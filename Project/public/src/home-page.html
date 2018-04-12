@@ -24,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -173,7 +174,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 signed-in="{{signedIn}}"
                 user="{{user}}">
             </firebase-auth>
-            <paper-button id='login-button' onclick='FB.login()'>Login</paper-button>
+            <paper-button id='login-button' onclick='firebase.auth().signInWithRedirect()'>Login</paper-button>
             <paper-button raised id='signin-button'>Sign up</paper-button>
           </app-toolbar>
         </app-header>
@@ -232,6 +233,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     window.customElements.define(HomePage.is, HomePage);
+  this.$.auth.signInWithPopup()
+    .then(function(response) {// successful authentication response here
+    })
+    .catch(function(error) {// unsuccessful authentication response here
+    });
   </script>
   <!-- <script>
     FB.login(function(response) {
