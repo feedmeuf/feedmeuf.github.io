@@ -176,7 +176,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 user="{{user}}">
             </firebase-auth>
 
-            <paper-button id='login-button' on-tap="signIn">Login</paper-button>
+            <paper-button id='login-button' on-tap="firebase.auth().signInWithRedirect(provider);">Login</paper-button>
             <paper-button raised id='signin-button'>Sign up</paper-button>
           </app-toolbar>
         </app-header>
@@ -248,6 +248,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   });
 </script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+ var provider = new firebase.auth.GoogleAuthProvider();
+ provider.addScope(‘profile’);
+ provider.addScope(‘email’);
+ provider.addScope(‘https://www.googleapis.com/auth/plus.me');
+ firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+</script>
+
   <!-- <script>
     FB.login(function(response) {
       // handle the response
