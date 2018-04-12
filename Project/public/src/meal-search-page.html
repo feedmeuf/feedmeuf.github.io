@@ -24,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/s-rating/s-rating.html">
-<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -110,7 +110,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     #search-results{
       position: relative;
-      width: 50%;
+      left: 10%;
+      width: 80%;
       overflow-y: scroll;
       height: 100%;
     }
@@ -186,10 +187,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar style="padding-bottom: 20px; background: url('../images/image-1.jpg') no-repeat center; background-size: cover; height: 200px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             <div id='search-bar'>
               <div id='inputs'>
-                <paper-input no-label-float label='Search' id='search'></paper-input>
-                <paper-input no-label-float label='Date'></paper-input>
-                <paper-input no-label-float label='Guests'></paper-input>
-                <paper-button raised class='signin-button' id='searchbutton'>Search</paper-button>
+                <paper-input no-label-float label='Meal Type' id='search' value="{{mealtypesearch}}"></paper-input>
+                <paper-input no-label-float label='Date' id="search" value="{{datesearch}}"></paper-input>
+                <paper-button raised class='signin-button' id='searchbutton' on-click="searchMeals">Search</paper-button>
               </div>
             </div>
           </app-toolbar>
@@ -198,33 +198,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div style="display: flex; flex-direction: row; height: 90vh">
         <div id='search-results'>
 
-          <firebase-document
-          path="/Meals"
-          data="{{Meals}}">
-          </firebase-document>
+          <firebase-query
+              id="query"
+              app-name="feedme"
+              path="/meals"
+              data="{{meals}}">
+          </firebase-query>
           
-          <dom-repeat items="{{Meals}}">
+          <dom-repeat items="{{meals}}">
             <template>
               <div class='result'>
                 <!-- <img src="{{item.img}}" style="width: 200px; height: 200px; margin-right: 10px;"> -->
-                <div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url({{item.Image}}); border-bottom-left-radius: 5px; border-top-left-radius: 5px;">
-                <img src="../images/unpressed-star.png" style="height: 20px; width: 20px; margin: 5px;">
+                <div style="min-width: 200px;position: relative; width: 200px; height: 200px; background: url('{{item.image}}'); border-bottom-left-radius: 5px; border-top-left-radius: 5px;">
+                <!-- <img src="../images/unpressed-star.png" style="height: 20px; width: 20px; margin: 5px;"> -->
                   <div id="mealprice">
-                    $100
+                    {{item.price}}
                   </div>
                 </div>
                 <div class='result-right'>
-                  <h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.Name}}</h2>
-                  <p style="position: absolute;right: 0;margin-top: 0;">DDD, 00 MMM</p>
-                  <p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.Host}}</span> for <span style="font-weight: bold;">{{item.Mealtype}}</span>!</p>
-                  <p style='font-weight: normal; margin: 0;'>{{item.Description}}</p>
-                  <s-rating value='4' disabled style="position: absolute; bottom: 0;"></s-rating>
+                  <h2 style="font-weight: normal; color: #6beab1; margin-bottom: 0;">{{item.name}}</h2>
+                  <p style="position: absolute;right: 0;margin-top: 0;">{{item.date}}</p>
+                  <p style="margin-top: 0; margin-bottom: 5px;">Join <span class="hostandtype">{{item.host}}</span> for <span style="font-weight: bold;">{{item.mealtype}}</span>!</p>
+                  <p style='font-weight: normal; margin: 0;'>{{item.description}}</p>
+                  <s-rating value='{{item.rating}}' disabled style="position: absolute; bottom: 0;"></s-rating>
                 </div>
               </div>
             </template>
           </dom-repeat>
         </div>
-        <img src="../images/map.jpg" style="width: 50%; height: 100%;">
+        <!-- <img src="../images/map.jpg" style="width: 50%; height: 100%;"> -->
         </div>
         <page-footer></page-footer>
       </app-header-layout>
@@ -237,21 +239,56 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'meal-search-page'; }
       static get properties() {
         return {
-          results: {
+          oldData: {
             value() {
-              return [
-                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
-                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
-                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
-                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
-                {img: '../images/200x200.jpg', title: 'Alfredo Pasta', description: 'Slow cooked Pasta with Alfredo Sauce.', host: 'Mir', mealtype: 'Lunch'},
-                {img: '../images/200x200.jpg', title: 'Steak with Mushrooms', description: 'IDK rn pls send help.', host: 'Mir', mealtype: 'Lunch'},
-              ];
+              return this.data;
             }
           }
         };
       }
+
+      // ready(){
+      //   this.oldData = this.data;
+      // }
+
+      searchMeals(){
+        var searchdata = [];
+        var k = 0;
+        if (this.mealtypesearch != undefined && this.datesearch != undefined){
+          for(var i=0;i<this.oldData.length;i++){
+            if(this.oldData[i].mealtype == this.mealtypesearch){
+              searchdata[k] = this.oldData[i];
+              k++;
+            }
+          }
+          k = 0;
+          for(var i=0;i<this.searchdata.length;i++){
+            if(this.searchdata[i].date == this.datesearch){
+              searchdata[k] = searchdata[i];
+              k++;
+            }
+          }
+        } else if(this.mealtypesearch != undefined){
+          for(var i=0;i<this.oldData.length;i++){
+            if(this.oldData[i].mealtype == this.mealtypesearch){
+              searchdata[k] = this.oldData[i];
+              k++;
+            }
+          }
+        } else if(this.datesearch != undefined){
+          for(var i=0;i<this.oldData.length;i++){
+            if(this.oldData[i].date == this.datesearch){
+              searchdata[k] = this.oldData[i];
+              k++;
+            }
+          }
+        } else {
+          return;
+        }
+        this.data = searchdata;
+      }
     }
+
 
     window.customElements.define(MealSearchPage.is, MealSearchPage);
   </script>
