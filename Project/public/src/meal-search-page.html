@@ -180,7 +180,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
+            <div>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="home-page" href="home-page" style="padding: 0;"><img src="../images/feedmelogo-color.png" style="height:40px; margin-top: 10px;""></a>
+          </iron-selector>
+            </div>
+            <div style="flex-grow: 1"></div>
             <paper-button id='login-button'>Login</paper-button>
             <paper-button raised class='signin-button'>Sign up</paper-button>
           </app-toolbar>
@@ -205,7 +210,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               data="{{meals}}">
           </firebase-query>
           
-          <dom-repeat items="{{meals}}">
+          <dom-repeat items="{{data}}">
             <template>
               <div class='result'>
                 <!-- <img src="{{item.img}}" style="width: 200px; height: 200px; margin-right: 10px;"> -->
@@ -239,19 +244,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'meal-search-page'; }
       static get properties() {
         return {
-          oldData: {
-            value() {
-              return this.data;
-            }
+          oldData: Array,
+          meals: {
+            type: Array,
+            observer: '_mealsChanged'
           }
         };
       }
 
-      // ready(){
-      //   this.oldData = this.data;
-      // }
+      gotohomepage(){
+        // this._pageChanged('home-page');
+        this.page = "home-page";
+      }
+
+      _mealsChanged(){
+        this.searchMeals();
+      }
 
       searchMeals(){
+        if (this.oldData == undefined) { this.oldData = this.meals}
         var searchdata = [];
         var k = 0;
         if (this.mealtypesearch != undefined && this.datesearch != undefined){
@@ -283,6 +294,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           }
         } else {
+          this.data = this.meals;
           return;
         }
         this.data = searchdata;
