@@ -95,14 +95,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-align: center;
         position: relative;
         width: 70%;
-        font-family:'century gothic'
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     .form-content{
       display: flex;
       flex-direction: horizontal;
       position: relative;
-      font-family: "century gothic";
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #search {
@@ -112,7 +112,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     paper-button {
         text-transform: none;
         color: #878B8F;
-        font-family: "century gothic";
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #signin-button {
@@ -151,7 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 5px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       margin-bottom: 10px;
-      font-family: "century gothic";
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     label {
@@ -167,6 +167,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 4px;
       cursor: pointer;
       float: right;
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #login-button.hover {
@@ -202,6 +203,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black;
         font-weight: bold;
       }
+
     </style>
 
     <app-location
@@ -237,7 +239,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div class="main-content">
           <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
-            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Create a Meal</h1>
+            <h1 style="text-align: center; border-bottom: 1px solid black; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Create a Meal</h1>
           </div>
         
 
@@ -253,7 +255,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </div>
               <div class="form-content">
                 <label for="guests" class="col-25">Meal Type</label>
-                <select id="time" name="time" class="col-75">
+                <select id="time" name="time" class="col-75" style="margin-left: -7px;">
                   <option value="breakfast">Breakfast</option>
                   <option value="lunch">Lunch</option>
                   <option value="dinner">Dinner</option>
@@ -275,7 +277,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <label for="description" class="col-25">Description</label>
                 <textarea id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style="height:200px"></textarea>
               </div>
-              <paper-button raised id='signin-button' style="margin-top: 20px; margin-left: 90px; margin-bottom: 10px; text-align:center; width: 30%">Create Your Meal</paper-button>
+              <paper-button raised id='signin-button' style="margin-top: 20px; margin-left: 90px; margin-bottom: 10px; text-align:center; width: 30%">Create Meal</paper-button>
             </form>
           </div>
         </div>
