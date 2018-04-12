@@ -76,13 +76,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-left: 20px; 
         margin-right: 20px;
         margin-bottom: 30px;
-        font-family: "century gothic";
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     #about-content{
       display: flex;
       flex-direction: column;
-      font-family: "century gothic";
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;;
     }
     
     #search {
@@ -92,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     paper-button {
         text-transform: none;
         color: #878B8F;
-        font-family: "century gothic";
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #signin-button {
@@ -175,18 +175,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div class="meal-info">
             <div style="margin-left: 20px; margin-right: 20px; margin-bottom: -25px">
-              <h1 style="text-align: left; font-family: 'century gothic'">Meal Title</h1>
+              <h1 style="text-align: left; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;">Meal Title</h1>
             </div>
 
             <div class="content" style="border-bottom: 1px solid black;">
                <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Date</p>
                <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Time</p>
-               <p style="size: 15px; float: left; margin-right: 10px;">Cuisine Type</p>
-               <p style="size: 15px; float: left;">Number of Guests</p>
+               <p style="size: 15px; float: left; margin-right: 10px;">Meal Type</p>
+               <p style="size: 15px; float: left; margin-right: 10px;">Number of Guests</p>
+               <p style="size: 15px; float: left;">Remaining Spots</p>
+
             </div>
 
             <div class="content">
-              <img src="../images/map.png" style="height: 250px; margin-right: 15px; border-radius: 2px;">
               <div id="about-content" style="margin-left: 20px;">
                 <h2 style="text-align: center;">About the Meal</h2>
                 <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
@@ -194,12 +195,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
 
             <div class="content" style="margin-top: 15px;">
-              <div id="about-content" style="margin-right: 20px;">
+              <div id="about-content" style="margin-left: 20px;">
                 <h2 style="text-align: center;">About the Host</h2>
                 <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
-              </div>
-              <img src="../images/blank-profile-picture.png" style="height: 250px; margin-left: 15px; border-radius: 2px;">   
+              </div> 
             </div>
+
+            <div style="text-align:center">
+               <paper-button raised id='signin-button' style="margin-top: 20px; margin-bottom: 10px;  width: 30%;">Attend This Meal</paper-button>
+            </div>
+           
         </div>
     
         <page-footer></page-footer>
