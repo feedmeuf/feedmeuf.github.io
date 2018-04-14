@@ -277,11 +277,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var currentUser = auth.currentUser;
       //firebase.auth().currentUser;
     };
-    document.querySelector('#sign-out').addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    function logout(){
       firebase.auth().signOut();
-    });
+    };
   </script>
   <!-- <script>
     FB.login(function(response) {
