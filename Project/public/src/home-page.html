@@ -177,8 +177,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 signed-in="{{signedIn}}"
                 user="{{user}}">
             </firebase-auth>
-            <paper-button id='login-button' onclick='firebase.auth().signInWithRedirect(provider)'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+            <paper-button id='sign-in' onclick='login()' >Login</paper-button>
+            <paper-button raised id='logout'>Logout</paper-button>
           </app-toolbar>
         </app-header>
         <div id='search-bar'>
@@ -230,15 +230,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-drawer-layout>
   </template>
 
+
+
   <script>
     class HomePage extends Polymer.Element {
       static get is() { return 'home-page'; }
     }
 
     window.customElements.define(HomePage.is, HomePage);
-  var provider = new firebase.auth.GoogleAuthProvider();
+  </script>
+  <script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
  
     // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
     var config = {
       apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
       authDomain: "feedme-88e81.firebaseapp.com",
@@ -246,8 +252,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //storageBucket: "<your project id>.appspot.com",
     };
     firebase.initializeApp(config);
+  </script>
+    <!--Handle auth events-->
   
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+      //The above example keeps window.user in sync with your Firebase Auth user. user will be undefined if the user is not logged in.
 
+      //use firebase.auth().currentUser to obtain user info 
+    });
+  </script>
+  
+  <script>    
+      function login(){
+     // e.preventDefault();
+     // e.stopPropagation();
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/plus.me');
+      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+      var auth = firebase.auth();
+      var currentUser = auth.currentUser;
+      //firebase.auth().currentUser;
+    };
+    document.querySelector('#sign-out').addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      firebase.auth().signOut();
+    });
   </script>
   <!-- <script>
     FB.login(function(response) {
