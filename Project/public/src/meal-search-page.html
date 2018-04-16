@@ -25,6 +25,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/s-rating/s-rating.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<script src="https://apis.google.com/js/platform.js" async defer> </script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -238,7 +242,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-drawer-layout>
     
   </template>
+    <script>
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+      //The above example keeps window.user in sync with your Firebase Auth user. user will be undefined if the user is not logged in.
 
+      //use firebase.auth().currentUser to obtain user info 
+    });
+  </script>
   <script>
     class MealSearchPage extends Polymer.Element {
       static get is() { return 'meal-search-page'; }
@@ -303,5 +327,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
     window.customElements.define(MealSearchPage.is, MealSearchPage);
+  </script>
+
+  <!--<script>
+    Polymer({
+      is: 'meal-search-page'
+    });-->
+
   </script>
 </dom-module>

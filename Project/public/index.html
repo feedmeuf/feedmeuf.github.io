@@ -40,6 +40,10 @@
     <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
 
+
+<script src="https://apis.google.com/js/platform.js" async defer> </script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3f51b5">
@@ -121,6 +125,20 @@ js = d.createElement(s); js.id = id;
 js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=1390550024385081&autoLogAppEvents=1';
 fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+ 
+    <!--Handle auth events-->
+  
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+      //The above example keeps window.user in sync with your Firebase Auth user. user will be undefined if the user is not logged in.
+
+      //use firebase.auth().currentUser to obtain user info 
+    });
+  </script>
     <my-app></my-app>
     <noscript>
       Please enable JavaScript to view this website.
