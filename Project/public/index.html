@@ -107,12 +107,20 @@
       default-cache-strategy="networkFirst">
   </platinum-sw-cache>
 </platinum-sw-register>
-<firebase-app
-    name= "feedme" 
-    api-key= "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo"
-    auth-domain= "feedme-88e81.firebaseapp.com"
-    database-url= "https://feedme-88e81.firebaseio.com">
-    </firebase-app>
+<script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    //firebase.initializeApp(config);
+  </script> 
     <!-- <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError">
 </firebase-auth> -->
 

@@ -148,4 +148,22 @@
 
     window.customElements.define(PageFooter.is, PageFooter);
   </script>
+
+  <script>
+      function login(){
+     // e.preventDefault();
+     // e.stopPropagation();
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/plus.me');
+      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+      var auth = firebase.auth();
+      var currentUser = auth.currentUser;
+      //firebase.auth().currentUser;
+    };
+    function logout(){
+      firebase.auth().signOut();
+    };
+  </script>
 </dom-module>
