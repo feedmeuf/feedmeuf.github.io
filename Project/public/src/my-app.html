@@ -71,8 +71,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list a.iron-selected {
-        color: black;
-        font-weight: bold;
+        color: white;
+        font-weight: normal;
       }
     </style>
 
@@ -120,15 +120,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <home-page name="home-page"></home-page>
-          <login-page name="login-page"></login-page>
-          <signup-page name="signup-page"></signup-page>
-          <profile-page name="profile-page"></profile-page>
-          <meal-page name="meal-page"></meal-page>
-          <create-meal-page name="create-meal-page"></create-meal-page>
-          <about-us-page name="about-us-page"></about-us-page>
-          <meal-search-page name="meal-search-page"></meal-search-page>
-          <faq-page name="faq-page"></faq-page>
+          <home-page name="home-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></home-page>
+          <login-page name="login-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></login-page>
+          <signup-page name="signup-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></signup-page>
+          <profile-page name="profile-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></profile-page>
+          <meal-page name="meal-page" 
+          selected-Meal="{{selectedMeal}}"
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></meal-page>
+          <create-meal-page name="create-meal-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></create-meal-page>
+          <about-us-page name="about-us-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></about-us-page>
+          <meal-search-page name="meal-search-page" 
+          selected-Meal="{{selectedMeal}}"
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></meal-search-page>
+          <faq-page name="faq-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></faq-page>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -141,6 +161,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
+          selectedMeal: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          isLoggedOut: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
           page: {
             type: String,
             reflectToAttribute: true,

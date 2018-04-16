@@ -120,12 +120,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list {
-        margin: 0 20px;
+        margin: 0 0px;
       }
 
       .drawer-list a {
         display: block;
-        padding: 0 16px;
+        padding: 0 0px;
         text-decoration: none;
         color: var(--app-secondary-color);
         line-height: 40px;
@@ -133,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .drawer-list a.iron-selected {
         color: black;
-        font-weight: bold;
+        font-weight: normal;
       }
     </style>
 
@@ -158,13 +158,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
-            <paper-button id='login-button'>Meal Search</paper-button>
-            <paper-button id='login-button'>Become a Host</paper-button>
-            <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign Out</paper-button>
+          <app-toolbar style="display: flex; flex-direction: row">
+            <div>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="home-page" href="home-page" style="padding: 0;"><img src="../images/feedmelogo-color.png" style="height:40px; margin-top: 10px;""></a>
+          </iron-selector>
+            </div>
+            <div style="flex-grow: 2"></div>
+            <firebase-auth
+                id="auth"
+                app-name="feedme"
+                provider="google"
+                signed-in="{{signedIn}}"
+                user="{{user}}">
+            </firebase-auth>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button id='sign-in' style="color: #424A54; font-weight: normal;" >Search Meals</paper-button></a>
+          </iron-selector>
+            <template is="dom-if" if="{{isLoggedOut}}">
+              <paper-button id='sign-in' on-click='login' style='color: #424A54;'>Login</paper-button>
+            </template>
+            <template is="dom-if" if="{{isLoggedIn}}">
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;"  >Become a Host</paper-button></a>
+              </iron-selector>
+              <paper-button raised id='logout' onclick="logout()" on-click='logout' style="color: #424A54;">Logout</paper-button>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;">Account</paper-button></a>
+              </iron-selector>
+              </template>
+
           </app-toolbar>
         </app-header>
 
@@ -175,29 +198,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div class="meal-info">
             <div style="margin-left: 20px; margin-right: 20px; margin-bottom: -25px">
-              <h1 style="text-align: left; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;">Meal Title</h1>
+              <h1 style="text-align: left; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;">{{selectedMeal.name}}</h1>
             </div>
 
             <div class="content" style="border-bottom: 1px solid black;">
-               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Date</p>
-               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Meal Time</p>
-               <p style="size: 15px; float: left; margin-right: 10px;">Meal Type</p>
-               <p style="size: 15px; float: left; margin-right: 10px;">Number of Guests</p>
-               <p style="size: 15px; float: left;">Remaining Spots</p>
+               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Date: <span style="font-weight: bold;">{{selectedMeal.date}}</span></p>
+               <p style="size: 15px; text-align: left;float: left; margin-right: 10px;">Time: <span style="font-weight: bold;">{{selectedMeal.time}}</span></p>
+               <p style="size: 15px; float: left; margin-right: 10px;">Meal Type: <span style="font-weight: bold;">{{selectedMeal.mealtype}}</span></p>
+               <p style="size: 15px; float: left; margin-right: 10px;">Number of Guests: <span style="font-weight: bold;">{{selectedMeal.guests}}</span></p>
+               <p style="size: 15px; float: left;">Remaining Spots: <span style="font-weight: bold;">{{selectedMeal.guestsleft}}</span></p>
 
             </div>
 
             <div class="content">
               <div id="about-content" style="margin-left: 20px;">
                 <h2 style="text-align: center;">About the Meal</h2>
-                <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
+                <p style="size: 16px;">{{selectedMeal.description}}</p>
               </div>
             </div>
 
             <div class="content" style="margin-top: 15px;">
               <div id="about-content" style="margin-left: 20px;">
-                <h2 style="text-align: center;">About the Host</h2>
-                <p style="size: 16px;">Lorem ipsum dolor sit amet, natum clita delicatissimi usu ne, an vim aeque disputationi, pri no reque elitr accumsan. Eos in dolore antiopam, ad has putant tacimates invenire. Eu duo quod rationibus. Has no impetus posidonium, saperet ornatus fuisset vel ad. Mutat vidisse integre ea mea, ex vel decore animal aliquando. Mei veniam deserunt repudiandae ea. Pri soleat recusabo laboramus ne, tractatos deseruisse mea in, bonorum meliore eu eum. Velit dicit volumus ius ne. Ad maiestatis concludaturque nam, per ne ipsum dicant. Eam in docendi voluptatum constituam. Eam adipisci urbanitas cu.</p>
+                <h2 style="text-align: center;">About {{selectedMeal.host}}</h2>
+                <p style="size: 16px;">{{selectedMeal.hostdescription}}</p>
               </div> 
             </div>
 
@@ -217,6 +240,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class MealPage extends Polymer.Element {
       static get is() { return 'meal-page'; }
+      static get properties() {
+        return {
+          selectedMeal: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedOut: {
+            type: Boolean,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+          }
+        };
+      }
+
+      ready(){
+        super.ready();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+        var that = this;
+        var p = new Promise(function(resolve, reject) {
+          setTimeout(function() { resolve(10); }, 1000);
+        });
+        p.then(function(result) {
+          if (window.user != null) {
+            that.isLoggedIn = true;
+            that.isLoggedOut = false;
+          }
+        });
+      }
+
+      login(){
+        login();
+        this.isLoggedOut = false;
+        this.isLoggedIn  = true;
+      }
+
+      logout(){
+        logout();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+      }
     }
 
     window.customElements.define(MealPage.is, MealPage);
