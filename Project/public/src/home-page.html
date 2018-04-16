@@ -24,10 +24,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/polymerfire/polymerfire.html"><!-- 
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
 <script src="https://apis.google.com/js/platform.js" async defer> </script>
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
- -->
+ 
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -180,13 +180,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button id='sign-in' style="color: white; font-weight: normal;" >Search Meals</paper-button></a>
           </iron-selector>
             <template is="dom-if" if="{{isLoggedOut}}">
-              <paper-button id='sign-in' on-click='login'>Login</paper-button>
+              <paper-button id='sign-in' on-click='login_t'>Login</paper-button>
             </template>
             <template is="dom-if" if="{{isLoggedIn}}">
             <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
               <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
               </iron-selector>
-              <paper-button raised id='logout' onclick="logout()" on-click='logout'>Logout</paper-button>
+              <paper-button raised id='logout_t' onclick="logout()" on-click='logout'>Logout</paper-button>
               <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
               <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;">Account</paper-button></a>
               </iron-selector>
@@ -274,7 +274,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         };
       }
-
       ready(){
         super.ready();
         this.isLoggedOut = true;
@@ -291,13 +290,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       }
 
-      login(){
+      login_t(){
         login();
         this.isLoggedOut = false;
         this.isLoggedIn  = true;
       }
 
-      logout(){
+      logout_t(){
         logout();
         this.isLoggedOut = true;
         this.isLoggedIn  = false;
@@ -326,8 +325,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       //storageBucket: "<your project id>.appspot.com",
     };
     firebase.initializeApp(config);
-  </script>
-    <!--Handle auth events-->
+  </script> 
+
+    <!--Handle auth events--> 
   
   <script>
     firebase.auth().onAuthStateChanged(function(user) {
@@ -366,9 +366,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       firebase.auth().signOut();
     };
   </script>
-  <!-- <script>
-    FB.login(function(response) {
-      // handle the response
-    }, {scope: 'public_profile,email'});
-  </script> -->
 </dom-module>

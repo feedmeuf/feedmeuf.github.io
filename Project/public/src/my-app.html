@@ -155,6 +155,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-drawer-layout>
   </template>
 
+
+  <script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script>
   <script>
     class MyApp extends Polymer.Element {
       static get is() { return 'my-app'; }
@@ -227,18 +242,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     window.customElements.define(MyApp.is, MyApp);
   </script>
 
-   <script>
-  
-  //var provider = new firebase.auth.GoogleAuthProvider();
- 
-    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
-    
-    var config = {
-      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
-      authDomain: "feedme-88e81.firebaseapp.com",
-      databaseURL: "https://feedme-88e81.firebaseio.com",
-      //storageBucket: "<your project id>.appspot.com",
-    };
-    firebase.initializeApp(config);
-  </script>
+   
 </dom-module>
