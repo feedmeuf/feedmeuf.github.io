@@ -229,13 +229,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <div style="display: flex; flex-direction: row; height: 90vh">
         <div id='search-results'>
-
-          <firebase-query
-              id="query"
-              app-name="feedme"
-              path="/meals"
-              data="{{meals}}">
-          </firebase-query>
           
           <dom-repeat items="{{data}}">
             <template>
@@ -324,6 +317,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           meals: {
             type: Array,
+            notify: true,
+            reflectToAttribute: true,
             observer: '_mealsChanged'
           }
         };
@@ -340,6 +335,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready(){
         super.ready();
+        var that = this;
+        var data = firebase.database().ref('meals');
+        data.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          console.log(userinfo[0]);
+          var array = [];
+          for (var i = 0; i<userinfo.length; i++){
+            if(userinfo[i] != undefined){
+              array.push(userinfo[i]);
+            }
+          }
+          that.meals = array;
+        });
+
         this.searchMeals();
         this.isLoggedOut = true;
         this.isLoggedIn  = false;
