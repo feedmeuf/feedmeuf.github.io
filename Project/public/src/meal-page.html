@@ -219,7 +219,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <div class="content" style="margin-top: 15px;">
               <div id="about-content" style="margin-left: 20px;">
-                <h2 style="text-align: center;">About {{selectedMeal.host}}</h2>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="profile-page" href="profile-page" style="padding: 0;"><h2 style="text-align: center;">About <span style="color: #6beab1; cursor: pointer;" on-click='changeUser'>{{selectedMeal.host}}</span>
+                </h2></a>
+          </iron-selector>
+                
                 <p style="size: 16px;">{{selectedMeal.hostdescription}}</p>
               </div> 
             </div>
@@ -242,6 +246,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'meal-page'; }
       static get properties() {
         return {
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           selectedMeal: {
             type: Object,
             notify: true,
@@ -275,6 +284,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             that.isLoggedIn = true;
             that.isLoggedOut = false;
           }
+        });
+      }
+
+      changeUser(){
+        var that = this;
+        var data = firebase.database().ref('users/' + this.selectedMeal.hostid);
+        data.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          that.selectedUser = userinfo;
         });
       }
 

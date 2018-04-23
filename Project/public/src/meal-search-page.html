@@ -339,9 +339,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var data = firebase.database().ref('meals');
         data.on('value', function(snapshot) {
           var userinfo = snapshot.val();
-          console.log(userinfo[0]);
           var array = [];
-          for (var i = 0; i<userinfo.length; i++){
+          for (var i in userinfo){
             if(userinfo[i] != undefined){
               array.push(userinfo[i]);
             }

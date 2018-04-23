@@ -130,9 +130,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></signup-page>
           <profile-page name="profile-page" 
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></profile-page>
           <meal-page name="meal-page" 
+          selected-user="{{selectedUser}}"
           selected-Meal="{{selectedMeal}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></meal-page>
@@ -177,6 +179,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           selectedMeal: {
             type: Object,
             notify: true,
