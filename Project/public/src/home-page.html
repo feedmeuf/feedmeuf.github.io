@@ -24,6 +24,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+<script src="https://apis.google.com/js/platform.js" async defer> </script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+ 
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 
@@ -90,12 +94,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list {
-        margin: 0 20px;
+        margin: 0 0px;
       }
 
       .drawer-list a {
         display: block;
-        padding: 0 16px;
+        padding: 0 0px;
         text-decoration: none;
         color: var(--app-secondary-color);
         line-height: 40px;
@@ -163,28 +167,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ), url("../images/homebackground.jpg") no-repeat center; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
+          <app-toolbar style="display: flex; flex-direction: row">
+            <div main-title style="flex-grow: 2"><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
             <firebase-auth
                 id="auth"
-                app-name="notes"
+                app-name="feedme"
                 provider="google"
                 signed-in="{{signedIn}}"
                 user="{{user}}">
             </firebase-auth>
-            <paper-button id='login-button' onclick='FB.login()'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button id='sign-in' style="color: white; font-weight: normal;" >Search Meals</paper-button></a>
+          </iron-selector>
+            <template is="dom-if" if="{{isLoggedOut}}">
+              <paper-button id='sign-in' on-click='login_t'>Login</paper-button>
+            </template>
+            <template is="dom-if" if="{{isLoggedIn}}">
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
+              </iron-selector>
+              <paper-button raised id='logout' onclick="logout()" on-click='logout_t'>Logout</paper-button>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;">Account</paper-button></a>
+              </iron-selector>
+              
+            </template>
           </app-toolbar>
         </app-header>
         <div id='search-bar'>
             <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
             <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
             <div id='inputs'>
-            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-                <paper-input label='Search' id='search'></paper-input>
-                <paper-input label='Date'></paper-input>
-                <paper-input label='Guests'></paper-input>
+              <paper-input no-label-float label='Meal Type' id='search' value="{{mealtypesearch}}"></paper-input>
+              <paper-input no-label-float label='Date' id="search" value="{{datesearch}}"></paper-input>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><<paper-button raised class='signin-button' id='searchbutton' on-click='test' style="color: white; font-weight: normal;">Search</paper-button></a>
+          </iron-selector>
+              
             </div>
         </div>
       </app-header-layout>
@@ -193,15 +212,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div id="howitworks3">
           <div class="howitworksdiv">
             <h3>Explore</h3>
-            <p>A cooking class in Rome, a rooftop dinner party in Barcelona, a supper club in London…Browse culinary events with our hand-selected hosts</p>
+            <p>Looking for the perfect home-cooked meal? Check out our Meal Search page and browse for a meal that suits your taste. </p>
           </div>
           <div class="howitworksdiv">
             <h3>Reserve</h3>
-            <p>A cooking class in Rome, a rooftop dinner party in Barcelona, a supper club in London…Browse culinary events with our hand-selected hosts</p>
+            <p>Once you find the perfect meal, select it to reserve your spot. You will be redirected to a Meal Page with all the important details.</p>
           </div>
           <div class="howitworksdiv">
             <h3>Feast</h3>
-            <p>A cooking class in Rome, a rooftop dinner party in Barcelona, a supper club in London…Browse culinary events with our hand-selected hosts</p>
+            <p>Don't forget the most important part! After you've reserved your spot, you can look forward to feasting on that amazing meal that you didn't even have to make!</p>
           </div>
         </div>
       </div>
@@ -209,16 +228,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <h2 style="text-align: center; font-weight: normal;">HEAR FROM OUR GUESTS</h2>
         <div id="ratings">
           <div class="singlerating">
-            <p>"Andrea in Rome prepared a multi-course meal with dishes from all regions of Italy. As great as the meal was, the conversation was just as good. We were at their home for more than three hours and the time flew by. This was our first EatWith experience but we will do it again as we travel to other cities.”</p>
-            <h4>Evan Gurda</h4>
+            <p>"Evan prepares the most amazing lasagne you will ever have. The cheese was sharp, yet subtle. The presentation would impress Gordon Ramsay. The sauce was flawlessly thic. When I took my first bite I closed my eyes and it was all too easy to imagine I was in Italy.”</p>
+            <h4>Jeffrey</h4>
           </div>
           <div class="singlerating">
-            <p>"Andrea in Rome prepared a multi-course meal with dishes from all regions of Italy. As great as the meal was, the conversation was just as good. We were at their home for more than three hours and the time flew by. This was our first EatWith experience but we will do it again as we travel to other cities.”</p>
-            <h4>Christie</h4>
+            <p>"When I first had the pleasure to bite into Dan's General Tso's Chicken, my world was transformed. The consistency, the flavor, the love with which it was cooked is all absorbed into one masterful work. Dan's culinary is less a dish, and more a work of art.”</p>
+            <h4>John</h4>
           </div>
           <div class="singlerating">
-            <p>"Andrea in Rome prepared a multi-course meal with dishes from all regions of Italy. As great as the meal was, the conversation was just as good. We were at their home for more than three hours and the time flew by. This was our first EatWith experience but we will do it again as we travel to other cities.”</p>
-            <h4>Esteban</h4>
+            <p>"All of my life I endeavored to find the perfect tuna melt, and until now, I was sadly disappointed. Most amateur cooks are not nearly liberal enough with the mayo, and consistently fail to allow the tuna's natural flavor shine through. Matt's, however, has exceeded expectations. Very tasty.”</p>
+            <h4>Ethan</h4>
           </div>
         </div>
       </div>
@@ -226,16 +245,127 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-drawer-layout>
   </template>
 
+
+
   <script>
     class HomePage extends Polymer.Element {
       static get is() { return 'home-page'; }
+      static get properties() {
+        return {
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedOut: {
+            type: Boolean,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+          },
+          mealtypesearch: {
+            type: String,
+            value: ''
+          },
+          datesearch: {
+            type: String,
+            value: ''
+          }
+        };
+      }
+      ready(){
+        super.ready();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+        var that = this;
+        var p = new Promise(function(resolve, reject) {
+          setTimeout(function() { resolve(10); }, 1000);
+        });
+        p.then(function(result) {
+          if (window.user != null) {
+            that.isLoggedIn = true;
+            that.isLoggedOut = false;
+          }
+        });
+      }
+
+      login_t(){
+        login();
+        this.isLoggedOut = false;
+        this.isLoggedIn  = true;
+      }
+
+      logout_t(){
+        logout();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+      }
+
+      test(){
+        this.parentElement.children[7].mealtypesearch = this.mealtypesearch;
+        this.parentElement.children[7].datesearch = this.datesearch;
+        this.parentElement.children[7].searchMeals();
+      }
+
     }
 
     window.customElements.define(HomePage.is, HomePage);
   </script>
-  <!-- <script>
-    FB.login(function(response) {
-      // handle the response
-    }, {scope: 'public_profile,email'});
+  <!--<script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    firebase.initializeApp(config);
   </script> -->
+<script>
+   firebase.initializeApp(config);
+</script>
+    <!--Handle auth events--> 
+  
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+      if (user != null){
+        firebase.database().ref('users/' + user.uid).set({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          description: 'New User!',
+          rating: 5
+        });
+      }
+      
+      
+      //The above example keeps window.user in sync with your Firebase Auth user. user will be undefined if the user is not logged in.
+
+      //use firebase.auth().currentUser to obtain user info 
+    });
+  </script>
+  
+  <script>
+      function login(){
+     // e.preventDefault();
+     // e.stopPropagation();
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/plus.me');
+      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+      var auth = firebase.auth();
+      var currentUser = auth.currentUser;
+      //firebase.auth().currentUser;
+    };
+    function logout(){
+      firebase.auth().signOut();
+    };
+  </script>
 </dom-module>

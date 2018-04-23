@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -71,8 +71,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list a.iron-selected {
-        color: black;
-        font-weight: bold;
+        color: white;
+        font-weight: normal;
       }
     </style>
 
@@ -120,20 +120,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <home-page name="home-page"></home-page>
-          <login-page name="login-page"></login-page>
-          <signup-page name="signup-page"></signup-page>
-          <profile-page name="profile-page"></profile-page>
-          <meal-page name="meal-page"></meal-page>
-          <create-meal-page name="create-meal-page"></create-meal-page>
-          <about-us-page name="about-us-page"></about-us-page>
-          <meal-search-page name="meal-search-page"></meal-search-page>
-          <faq-page name="faq-page"></faq-page>
+          <home-page name="home-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></home-page>
+          <login-page name="login-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></login-page>
+          <signup-page name="signup-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></signup-page>
+          <profile-page name="profile-page" 
+          selected-user="{{selectedUser}}"
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></profile-page>
+          <meal-page name="meal-page" 
+          selected-user="{{selectedUser}}"
+          selected-Meal="{{selectedMeal}}"
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></meal-page>
+          <create-meal-page name="create-meal-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></create-meal-page>
+          <about-us-page name="about-us-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></about-us-page>
+          <meal-search-page name="meal-search-page" 
+          selected-Meal="{{selectedMeal}}"
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></meal-search-page>
+          <faq-page name="faq-page" 
+          is-logged-in="{{isLoggedIn}}" 
+          is-logged-out="{{isLoggedOut}}"></faq-page>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
   </template>
+
+
+  <script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script> 
 
   <script>
     class MyApp extends Polymer.Element {
@@ -141,6 +179,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          selectedMeal: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          isLoggedOut: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
           page: {
             type: String,
             reflectToAttribute: true,
@@ -188,4 +249,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     window.customElements.define(MyApp.is, MyApp);
   </script>
+
+   
 </dom-module>

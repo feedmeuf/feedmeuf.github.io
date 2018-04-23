@@ -1,5 +1,5 @@
 {
-  "entrypoint": "index.html",
+  "entrypoint": "index.html","src/meal-search-page.html"
   "shell": "src/my-app.html",
   "fragments": [
     "src/about-us-page.html",
@@ -19,7 +19,7 @@
     "src/signup-page.html"
   ],
   "sources": [
-    "src/**/*",
+    "src/**",
     "images/**/*"
   ],
   "extraDependencies": [

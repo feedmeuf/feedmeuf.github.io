@@ -110,7 +110,7 @@
             <div id="col2" style="margin-left: 10px;">
               <a name="meal-page" href="meal-page">Meal Page</a>
               <a name="create-meal-page" href="create-meal-page">Create a Meal Page</a>
-              <a name="meal-search-page" href="meal-search-page">Meal Search Page</a>
+              <a name="meal-search-page" href="/meal-search-page">Meal Search Page</a>
               <a name="faq-page" href="faq-page">FAQ Page</a>
             </div>
           </iron-selector>
@@ -121,7 +121,7 @@
             <ul>
               <li>We’re here on Mon-Fri 9AM-5PM</li>
               <li>EST and Sat 9AM-1PM EST</li>
-              <li>Call us: +1 844-880-5316</li>
+              <li>Call us: +1 123-456-7890</li>
               <li>Email: <a href="mailto:support@feedme.com" data-reactid="924">support@feedme.com</a></li>
             </ul>
           </div>
@@ -147,5 +147,23 @@
     }
 
     window.customElements.define(PageFooter.is, PageFooter);
+  </script>
+
+  <script>
+      function login(){
+     // e.preventDefault();
+     // e.stopPropagation();
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/plus.me');
+      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+      var auth = firebase.auth();
+      var currentUser = auth.currentUser;
+      //firebase.auth().currentUser;
+    };
+    function logout(){
+      firebase.auth().signOut();
+    };
   </script>
 </dom-module>

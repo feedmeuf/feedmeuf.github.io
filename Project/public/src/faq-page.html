@@ -127,12 +127,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list {
-        margin: 0 20px;
+        margin: 0 0px;
       }
 
       .drawer-list a {
         display: block;
-        padding: 0 16px;
+        padding: 0 0px;
         text-decoration: none;
         color: var(--app-secondary-color);
         line-height: 40px;
@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .drawer-list a.iron-selected {
         color: black;
-        font-weight: bold;
+        font-weight: normal;
       }
       input {
         font-size: 16px;
@@ -171,11 +171,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-header-layout has-scrolling-region style='background-color: #F3F5F7;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-white.png" style="height:40px;"></div>
-            <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign up</paper-button>
+          <app-toolbar style="display: flex; flex-direction: row">
+            <div>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="home-page" href="home-page" style="padding: 0;"><img src="../images/feedmelogo-white.png" style="height:40px; margin-top: 10px;""></a>
+          </iron-selector>
+            </div>
+            <div style="flex-grow: 2"></div>
+            <firebase-auth
+                id="auth"
+                app-name="feedme"
+                provider="google"
+                signed-in="{{signedIn}}"
+                user="{{user}}">
+            </firebase-auth>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button id='sign-in' style="color: white; font-weight: normal;" >Search Meals</paper-button></a>
+          </iron-selector>
+            <template is="dom-if" if="{{isLoggedOut}}">
+              <paper-button id='sign-in' on-click='login' style='color: white;'>Login</paper-button>
+            </template>
+            <template is="dom-if" if="{{isLoggedIn}}">
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
+              </iron-selector>
+              <paper-button raised id='logout' onclick="logout()" on-click='logout' style="color: white;">Logout</paper-button>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;">Account</paper-button></a>
+              </iron-selector>
+              </template>
+
           </app-toolbar>
           <app-toolbar style="margin-bottom: 20px;">
             <div id='search-bar'>
@@ -208,19 +233,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'faq-page'; }
       static get properties() {
         return {
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedOut: {
+            type: Boolean,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+          },
           faqs: {
             value() {
               return [
-                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.', num: 1},
-                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.', num: 2},
-                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.', num: 2},
-                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.', num: 2},
-                {question: 'What is FeedMe?', answer: 'FeedMe is a Web Application for users to gain an experience to share meals among communties.', num: 2},
-                {question: 'Is it Safe?', answer: 'Users who want to create an account to host go through a basic background check to ensure saftey.', num: 3},
+                {question: 'What is FeedMe?', answer: 'Think of FeedMe as the Uber of meals. FeedMe a Web Application that allows hosts to share meals with hungry guests. Hosts can post meals in advance and invite friends and neighbors to the meal. Hungry guests can then book these delicious meals and get a home-cooked meal without having to do any of the hard work!', num: 1},
+                {question: 'How do I become a FeedMe host?', answer: 'Its easy! Just click the Become a Host button on your homepage and we will walk you through it.', num: 2},
+                {question: 'Is FeedMe free?', answer: 'It is free to post and search for meals on FeedMe. However, hosts will usually charge a fee for meals they offer. Payments are made directly to the host at the door (not on the FeedMe site).', num: 2},
+                {question: 'How do I create an account?', answer: 'It doesnt matter if this is your first time with us or you are a regular - just click the Log In button and enter your Google account credentials. That will log you in, even if this is your first time on our site.', num: 2},
+                {question: 'How do I post a meal?', answer: 'Navigate to our Create a Meal page and we will walk you through. You will need to set the name, date, type, time, capacity, price and description of your meal.', num: 3},
+                  {question: 'How do I book a meal?', answer: 'Navigate to our Meal Search page and we will help find the perfect meal for you. Use the search fields to narrow down your search to only include foods that you will love.', num: 3},
               ];
             }
           }
         };
+      }
+
+      ready(){
+        super.ready();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+        var that = this;
+        var p = new Promise(function(resolve, reject) {
+          setTimeout(function() { resolve(10); }, 1000);
+        });
+        p.then(function(result) {
+          if (window.user != null) {
+            that.isLoggedIn = true;
+            that.isLoggedOut = false;
+          }
+        });
+      }
+
+      login(){
+        login();
+        this.isLoggedOut = false;
+        this.isLoggedIn  = true;
+      }
+
+      logout(){
+        logout();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
       }
     }
 

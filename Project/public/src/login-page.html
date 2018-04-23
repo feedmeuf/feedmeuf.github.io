@@ -66,18 +66,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: flex;
         display: flex;
         flex-direction: row;
-        margin-left: 100px; 
-        margin-right: 100px;
-        margin-bottom: 30px;
+        margin-left: 200px; 
+        margin-right: 200px;
+        margin-bottom: 20px;
         text-align: center;
         position: relative;
         width: 70%;
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     .form-content{
       display: flex;
       flex-direction: horizontal;
       position: relative;
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #search {
@@ -87,14 +89,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     paper-button {
         text-transform: none;
         color: #878B8F;
-        font-family: "century gothic";
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #signin-button {
         border-radius: 5px;
         height: 40px;
         background: #ADEBCF; 
-        color: #878B8F;   
+        color: #878B8F;  
+        font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; 
     }
 
     .col-25 {
@@ -115,9 +118,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border: 1px solid #ccc;
       border-radius: 4px;
       resize: vertical;
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     .main-content{
+      margin-bottom: 20px;
       margin-left: 80px; 
       margin-right: 80px;
       margin-top: 20px;
@@ -126,12 +131,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 5px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       margin-bottom: 10px;
-      font-family: "century gothic";
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     label {
       padding: 12px 12px 12px 0;
       display: inline-block;
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
 
     input[type=submit] {
@@ -142,6 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 4px;
       cursor: pointer;
       float: right;
+      font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     }
     
     #login-button.hover {
@@ -162,12 +169,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list {
-        margin: 0 20px;
+        margin: 0 0px;
       }
 
       .drawer-list a {
         display: block;
-        padding: 0 16px;
+        padding: 0 0px;
         text-decoration: none;
         color: var(--app-secondary-color);
         line-height: 40px;
@@ -175,7 +182,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .drawer-list a.iron-selected {
         color: black;
-        font-weight: bold;
+        font-weight: normal;
       }
     </style>
 
@@ -200,49 +207,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ), url("../images/backgrond.png") no-repeat center center fixed; background-size: cover;'>
 
         <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title><img src="../images/feedmelogo-color.png" style="height:40px;"></div>
-            <paper-button id='login-button'>Meal Search</paper-button>
-            <paper-button id='login-button'>Become a Host</paper-button>
-            <paper-button id='login-button'>Login</paper-button>
-            <paper-button raised id='signin-button'>Sign Out</paper-button>
+          <app-toolbar style="display: flex; flex-direction: row">
+            <div>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="home-page" href="home-page" style="padding: 0;"><img src="../images/feedmelogo-color.png" style="height:40px; margin-top: 10px;""></a>
+          </iron-selector>
+            </div>
+            <div style="flex-grow: 2"></div>
+            <firebase-auth
+                id="auth"
+                app-name="feedme"
+                provider="google"
+                signed-in="{{signedIn}}"
+                user="{{user}}">
+            </firebase-auth>
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button id='sign-in' style="color: #424A54; font-weight: normal;" >Search Meals</paper-button></a>
+          </iron-selector>
+            <template is="dom-if" if="{{isLoggedOut}}">
+              <paper-button id='sign-in' on-click='login' style='color: #424A54;'>Login</paper-button>
+            </template>
+            <template is="dom-if" if="{{isLoggedIn}}">
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;"  >Become a Host</paper-button></a>
+              </iron-selector>
+              <paper-button raised id='logout' onclick="logout()" on-click='logout' style="color: #424A54;">Logout</paper-button>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;">Account</paper-button></a>
+              </iron-selector>
+              </template>
+
           </app-toolbar>
         </app-header>
 
         <div class="main-content">
           <div style="margin-left: 100px; margin-right: 100px; margin-bottom: 10px">
-            <h1 style="text-align: center; border-bottom: 1px solid black; font-family:'century gothic'">Become A Host</h1>
+            <h1 style="text-align: center; border-bottom: 1px solid black; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif">Become A Host</h1>
           </div>
         
 
           <div class="content">
             <form method="get" action="/form/handler" id="meal-form">
               <div class="form-content">
-                <label for="fname" class="col-25">Home Address</label>
-                <input type="text" id="fname" name="firstname" placeholder="Address.." class="col-75">
+                <label for="age" class="col-25">Age</label>
+                <input type="text" id="age" name="age" placeholder="30" class="col-75">
               </div>
               <div class="form-content">
-                <label for="fname" class="col-25">Home City</label>
-                <input type="text" id="lname" name="lastname" placeholder="City.." class="col-75">
+                <label for="zipcode" class="col-25">Zipcode</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="32601" class="col-75">
               </div>
               <div class="form-content">
-                <label for="fname" class="col-25">Home State</label>
-                <input type="text" id="lname" name="lastname" placeholder="State.." class="col-75">
+                <label for="description" class="col-25">Bio</label>
+                <textarea id="description" name="description" placeholder="Write something about yourself.."  class="col-75" style="height:200px"></textarea>
               </div>
-              <div class="form-content">
-                <label for="guests" class="col-25">Number of Guests</label>
-                <select id="guests" name="guests" class="col-75">
-                  <option value="one">1</option>
-                  <option value="two">2</option>
-                  <option value="three">3</option>
-                  <option value="four">4</option>
-                  <option value="five">5</option>
-                  <option value="six">6</option>
-                  <option value="sixplus">6+</option>
-                </select>
-              </div>
-              <paper-button raised id='signin-button' style="margin-top: 10px; margin-left: 130px; text-align:center;">Submit</paper-button>
+              <paper-button raised id='signin-button' style="margin-top: 20px; margin-left: 90px; margin-bottom: 10px; text-align:center; width: 30%">Submit</paper-button>
             </form>
           </div>
         </div>
@@ -256,6 +274,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class LoginPage extends Polymer.Element {
       static get is() { return 'login-page'; }
+      static get properties() {
+        return {
+          isLoggedIn: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          isLoggedOut: {
+            type: Boolean,
+            value: true,
+            notify: true,
+            reflectToAttribute: true
+          }
+        };
+      }
+
+      ready(){
+        super.ready();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+        var that = this;
+        var p = new Promise(function(resolve, reject) {
+          setTimeout(function() { resolve(10); }, 1000);
+        });
+        p.then(function(result) {
+          if (window.user != null) {
+            that.isLoggedIn = true;
+            that.isLoggedOut = false;
+          }
+        });
+      }
+
+      login(){
+        login();
+        this.isLoggedOut = false;
+        this.isLoggedIn  = true;
+      }
+
+      logout(){
+        logout();
+        this.isLoggedOut = true;
+        this.isLoggedIn  = false;
+      }
     }
 
     window.customElements.define(LoginPage.is, LoginPage);

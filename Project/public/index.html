@@ -1,16 +1,12 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 
 <!doctype html>
 <html lang="en">
   <head>
+<!--     <link rel="manifest" href="manifest.json">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="bower_components/web-animations-js/web-animations.min.js"></script>
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-elements.html"> -->
+    <!-- <link rel="import" href="bower_components/polymerfire/firebase-app.html"> -->
     <meta charset="utf-8">
     <meta name="generator" content="Polymer Starter Kit">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -18,36 +14,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>My App</title>
     <meta name="description" content="My App description">
 
-
-    <platinum-sw-register
-    auto-register
-    skip-waiting
-    clients-claim
-    reload-on-install
-    href="sw-import.js">
-  <platinum-sw-cache
-      default-cache-strategy="networkFirst">
-  </platinum-sw-cache>
-</platinum-sw-register>
-<firebase-app
-    name= "FeedMe" 
-    api-key= "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo"
-    auth-domain= "feedme-88e81.firebaseapp.com"
-    database-url= "https://feedme-88e81.firebaseio.com"
-    project-id= "feedme-88e81"
-    storage-bucket= "feedme-88e81.appspot.com"
-    messaging-sender-id= "1043222446438"
-    </firebase-app>
-    <!--
-      The `<base>` tag below is present to support two advanced deployment options:
-      1) Differential serving. 2) Serving from a non-root path.
-
-      Instead of manually editing the `<base>` tag yourself, you should generally either:
-      a) Add a `basePath` property to the build configuration in your `polymer.json`.
-      b) Use the `--base-path` command-line option for `polymer build`.
-
-      Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
-    -->
     <base href="/">
 
     <link rel="icon" href="images/favicon.ico">
@@ -73,6 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
     <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+
+
+<script src="https://apis.google.com/js/platform.js" async defer> </script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
@@ -127,6 +97,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
   </head>
   <body>
+<platinum-sw-register
+    auto-register
+    skip-waiting
+    clients-claim
+    reload-on-install
+    href="sw-import.js">
+  <platinum-sw-cache
+      default-cache-strategy="networkFirst">
+  </platinum-sw-cache>
+</platinum-sw-register>
+<script>
+  
+  //var provider = new firebase.auth.GoogleAuthProvider();
+ 
+    // Visit https://console.firebase.google.com/project/<your project id>/overview and click on "Add Firebase to your web app"
+    
+    var config = {
+      apiKey: "AIzaSyDdxymRZQOLwyU9yBUdbul9LVeRpTfgaxo",
+      authDomain: "feedme-88e81.firebaseapp.com",
+      databaseURL: "https://feedme-88e81.firebaseio.com",
+      //storageBucket: "<your project id>.appspot.com",
+    };
+    //firebase.initializeApp(config);
+  </script> 
+    <!-- <firebase-auth id="auth" user="{{user}}" provider="google" on-error="handleError">
+</firebase-auth> -->
+
   	<div id="fb-root"></div>
 		<div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -136,6 +133,20 @@ js = d.createElement(s); js.id = id;
 js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=1390550024385081&autoLogAppEvents=1';
 fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+ 
+    <!--Handle auth events-->
+  
+  <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+      //The above example keeps window.user in sync with your Firebase Auth user. user will be undefined if the user is not logged in.
+
+      //use firebase.auth().currentUser to obtain user info 
+    });
+  </script>
     <my-app></my-app>
     <noscript>
       Please enable JavaScript to view this website.
