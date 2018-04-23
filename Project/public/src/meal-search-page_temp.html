@@ -338,19 +338,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var that = this;
         var data = firebase.database().ref('meals');
         data.on('value', function(snapshot) {
-          var userinfo = snapshot.val();
+          var mealinfo = snapshot.val();
+         // console.log(mealinfo);
           var array = [];
-          for (var i in userinfo){
-            if(userinfo[i] != undefined){
-              array.push(userinfo[i]);
+          for (var i = 0; i<22; i++){
+            if(mealinfo[i] != undefined){
+              array.push(mealinfo[i]);
             }
           }
           that.meals = array;
         });
 
         this.searchMeals();
-        this.isLoggedOut = true;
-        this.isLoggedIn  = false;
+        //this.isLoggedOut = true;
+        //this.isLoggedIn  = false;
         var that = this;
         var p = new Promise(function(resolve, reject) {
           setTimeout(function() { resolve(10); }, 1000);
@@ -380,10 +381,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       searchMeals(){
+        console.log(this.meals)
         if (this.oldData == undefined) { 
           this.oldData = this.meals
         };
-        console.log(this.meals)
         var searchdata = [];
         var k = 0;
         if (this.mealtypesearch != '' && this.datesearch != ''){
@@ -402,7 +403,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         } else if(this.mealtypesearch != ''){
           for(var i=0;i<this.meals.length;i++){
-            if(this.meals[i].mealtype == this.mealtypesearch){
+            if(this.meals[i].name == this.mealtypesearch){
               searchdata[k] = this.meals[i];
               k++;
             }
