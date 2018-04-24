@@ -192,23 +192,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-button id='sign-in' on-click='login' style='color: white;'>Login</paper-button>
             </template>
             <template is="dom-if" if="{{isLoggedIn}}">
-            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
-              </iron-selector>
+            <template is='dom-if' if="{{currentUser.isNotHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;"  >Become a Host</paper-button></a>
+                </iron-selector>
+              </template>
+              <template is='dom-if' if="{{currentUser.isHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="create-meal-page" href="create-meal-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;" >Create a Meal</paper-button></a>
+                </iron-selector>
+              </template>
               <paper-button raised id='logout' onclick="logout()" on-click='logout' style="color: white;">Logout</paper-button>
               <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;">Account</paper-button></a>
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;" on-click='selfUser'>Account</paper-button></a>
               </iron-selector>
               </template>
 
           </app-toolbar>
-          <app-toolbar style="margin-bottom: 20px;">
+          <!-- <app-toolbar style="margin-bottom: 20px;">
             <div id='search-bar'>
               <div id='inputs'>
                   <paper-input label='Search' id='search' style="font-size: 16px;"></paper-input>
               </div>
             </div>
-          </app-toolbar>
+          </app-toolbar> -->
         </app-header>
         
         <div id='faqs-list'>
@@ -233,6 +240,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'faq-page'; }
       static get properties() {
         return {
+          currentUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           isLoggedIn: {
             type: Boolean,
             value: false,
@@ -272,7 +289,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (window.user != null) {
             that.isLoggedIn = true;
             that.isLoggedOut = false;
+            var data = firebase.database().ref('users/' + window.user.uid);
+            data.on('value', function(snapshot) {
+              var userinfo = snapshot.val();
+              that.currentUser = userinfo;
+              that.selectedUser = userinfo;
+            });
           }
+        });
+      }
+      selfUser(){
+        var that = this;
+        var data = firebase.database().ref('users/' + window.user.uid);
+        data.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          that.selectedUser = userinfo;
         });
       }
 
