@@ -22,8 +22,8 @@ FeedMe.prototype.addMeal = function(data) {
 
 FeedMe.prototype.getAllMeals = function(render) {
    var query = firebase.firestore()
-   .collection('restaurants')
-   .orderBy('avgRating', 'desc')
+   .collection('meals')
+   .orderBy('name', 'desc')
    .limit(50);
    this.getDocumentsInQuery(query, render);
   
