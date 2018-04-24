@@ -135,6 +135,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         float:left;
         margin-top: 6px;
         margin-bottom: 2px;
+        --paper-input-container-input: {
+          font-size: 16px;
+        };
     }
 
     input[type=text], select, textarea {
@@ -309,6 +312,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-input value='{{price}}' type="text" id="price" name="price" placeholder="20.00" class="col-75" style='flex-grow: 1; text-align: left;'></paper-input>
               </div>
               <div class="form-content">
+                <label for="guests" class="col-25">Photo URL</label>
+                <paper-input value='{{photo}}' type="text" id="photo" name="photo" placeholder="Image URL (200x200)..." class="col-75" style='flex-grow: 1; text-align: left;'></paper-input>
+              </div>
+              <div class="form-content">
                 <label for="description" class="col-25">Description</label>
                 <paper-textarea value='{{description}}' id="description" name="description" placeholder="Write something to describe your meal.."  class="col-75" style='flex-grow: 1; text-align: left;'></paper-textarea>
               </div>
@@ -365,7 +372,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var slotsleft = this.guest;
         var price = this.price;
         var des = this.description;
-        var img = '../images/200x200.jpg';
+        var img = this.photo;
         var hostid = window.user.uid;
         var user = firebase.database().ref('users/' + hostid);
         var hostname;

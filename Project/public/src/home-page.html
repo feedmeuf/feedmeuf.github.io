@@ -402,13 +402,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     firebase.auth().onAuthStateChanged(function(user) {
       window.user = user;
-      if (user != null){
-        var user = firebase.database().ref('users');
+      if (window.user != null){
+        var users = firebase.database().ref('users');
         var newUser = true;
-        user.on('value', function(snapshot) {
+        users.on('value', function(snapshot) {
           var userinfo = snapshot.val();
+          debugger;
           for (var i in userinfo) {
-            if (userinfo[i] == user.uid){
+            if (i == window.user.uid){
               newUser = false;
             }
           }
@@ -423,6 +424,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             isHost: false,
             isNotHost: true,
           });
+
         }
       }
       
