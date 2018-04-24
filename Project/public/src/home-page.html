@@ -407,7 +407,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var newUser = true;
         users.on('value', function(snapshot) {
           var userinfo = snapshot.val();
-          debugger;
           for (var i in userinfo) {
             if (i == window.user.uid){
               newUser = false;
