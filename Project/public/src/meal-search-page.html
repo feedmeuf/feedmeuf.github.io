@@ -418,38 +418,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (this.oldData == undefined) { 
           this.oldData = this.meals
         };
-        console.log(this.meals)
+       // console.log(this.meals)
         var searchdata = [];
         var k = 0;
         if (this.mealtypesearch != '' && this.datesearch != ''){
           for(var i=0;i<this.meals.length;i++){
-            if(this.meals[i].mealtype == this.mealtypesearch){
+            if((this.meals[i].mealtype == this.mealtypesearch) && this.meals[i].date == this.datesearch){
               searchdata[k] = this.meals[i];
               k++;
             }
           }
-          k = 0;
-          for(var i=0;i<this.searchdata.length;i++){
-            if(this.searchdata[i].date == this.datesearch){
-              searchdata[k] = searchdata[i];
-              k++;
-            }
-          }
-        } else if(this.mealtypesearch != ''){
+          
+        } 
+        else if(this.mealtypesearch != ''){
           for(var i=0;i<this.meals.length;i++){
             if(this.meals[i].mealtype == this.mealtypesearch){
               searchdata[k] = this.meals[i];
               k++;
             }
           }
-        } else if(this.datesearch != ''){
+        } 
+        else if(this.datesearch != ''){
           for(var i=0;i<this.meals.length;i++){
             if(this.meals[i].date == this.datesearch){
               searchdata[k] = this.meals[i];
               k++;
             }
           }
-        } else {
+        } 
+        else {
           this.data = this.meals;
           return;
         }
