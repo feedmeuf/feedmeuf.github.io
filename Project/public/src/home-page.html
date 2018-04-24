@@ -25,6 +25,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/polymerfire/polymerfire.html">
+
+<link rel="import" href="../bower_components/paper-dropdown-input/paper-dropdown-input.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <script src="https://apis.google.com/js/platform.js" async defer> </script>
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
  
@@ -47,15 +51,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         left: 25%;
         width: 50%;
         color: white;
-        --paper-input-container-color: white;
-        --paper-input-container-focus-color: white;
-        --paper-input-container-input-color: white;
+        --paper-input-container-color: black;
+        --paper-input-container-focus-color: black;
+        --paper-input-container-input-color: black;
+        --paper-dropdown-menu-input-color: black;
+        --paper-dropdown-menu-color: black;
+        --paper-dropdown-menu-disabled-color: white;
+        --paper-dropdown-menu-ripple-color: white;
+        --paper-dropdown-menu-button-color: white; 
+        --paper-dropdown-menu-input-color: white; 
+        --paper-dropdown-menu-icon-color: white;
+        --paper-menu-button-content-color: white;
+        --paper-menu-button: white;
+        --paper-input-container-input: {
+          color: white;
+        }
     }
     
     #inputs {
         display: flex;
         flex-direction: row;
         color: white;
+        background-color: #ADEBCF;
+        opacity: .9;
+        border-radius: 5px;
+        padding: 0 5px;
         --paper-input-container-input: {
           font-size: 16px;
         };
@@ -91,6 +111,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
+      }
+
+      paper-dropdown-menu.custom {
+        --paper-input-container-label: {
+          color: white;
+        };
+
+        --paper-input-container-input: {
+          color: white;
+        };
+        /* no underline */
+        --paper-input-container-underline: {
+          display: none;
+        };
       }
 
       .drawer-list {
@@ -183,12 +217,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-button id='sign-in' on-click='login_t'>Login</paper-button>
             </template>
             <template is="dom-if" if="{{isLoggedIn}}">
-            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
-              </iron-selector>
+            <template is='dom-if' if="{{currentUser.isNotHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;"  >Become a Host</paper-button></a>
+                </iron-selector>
+              </template>
+              <template is='dom-if' if="{{currentUser.isHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="create-meal-page" href="create-meal-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;" >Create a Meal</paper-button></a>
+                </iron-selector>
+              </template>
               <paper-button raised id='logout' onclick="logout()" on-click='logout_t'>Logout</paper-button>
               <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;">Account</paper-button></a>
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: white; font-weight: normal;" on-click='selfUser'>Account</paper-button></a>
               </iron-selector>
               
             </template>
@@ -198,10 +239,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h1 style='text-align: center;'>Make Your Home A Resturant</h1>
             <h3 style='font-weight: normal; text-align: center;'>Share Meals With Others</h3>
             <div id='inputs'>
-              <paper-input no-label-float label='Meal Type' id='search' value="{{mealtypesearch}}"></paper-input>
-              <paper-input no-label-float label='Date' id="search" value="{{datesearch}}"></paper-input>
+              <paper-dropdown-input class='custom' no-search placeholder='Meal Type' no-label-float='true' style='flex-grow: 1; text-align: left; ' selected-item-label="{{mealtypesearch}}"
+                          items='["Breakfast","Lunch","Dinner"]'>
+                </paper-dropdown-input>
+                <paper-input no-label-float label='ex. 01/01/2018' id="search" value="{{datesearch}}" style='margin-top:2px;'></paper-input>
               <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><<paper-button raised class='signin-button' id='searchbutton' on-click='test' style="color: white; font-weight: normal;">Search</paper-button></a>
+              <a name="meal-search-page" href="meal-search-page" style="padding: 0;"><paper-button raised class='signin-button' id='searchbutton' on-click='test' style=" font-weight: normal; --paper-input-container-input-color: black; color: black; height: 40px;" >Search</paper-button></a>
           </iron-selector>
               
             </div>
@@ -252,6 +295,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'home-page'; }
       static get properties() {
         return {
+          currentUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           isLoggedIn: {
             type: Boolean,
             value: false,
@@ -286,7 +339,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (window.user != null) {
             that.isLoggedIn = true;
             that.isLoggedOut = false;
+            var data = firebase.database().ref('users/' + window.user.uid);
+            data.on('value', function(snapshot) {
+              var userinfo = snapshot.val();
+              that.currentUser = userinfo;
+              that.selectedUser = userinfo;
+            });
           }
+        });
+      }
+
+      selfUser(){
+        var that = this;
+        var data = firebase.database().ref('users/' + window.user.uid);
+        data.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          that.selectedUser = userinfo;
         });
       }
 
@@ -335,13 +403,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     firebase.auth().onAuthStateChanged(function(user) {
       window.user = user;
       if (user != null){
-        firebase.database().ref('users/' + user.uid).set({
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          description: 'New User!',
-          rating: 5
+        var user = firebase.database().ref('users');
+        var newUser = true;
+        user.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          for (var i in userinfo) {
+            if (userinfo[i] == user.uid){
+              newUser = false;
+            }
+          }
         });
+        if (newUser){
+          firebase.database().ref('users/' + user.uid).set({
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL,
+            description: 'New User!',
+            rating: 5,
+            isHost: false,
+            isNotHost: true,
+          });
+        }
       }
       
       

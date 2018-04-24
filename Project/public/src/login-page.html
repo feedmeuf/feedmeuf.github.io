@@ -25,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="page-footer.html">
 <!-- include classes in the main document -->
@@ -110,6 +111,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         float:left;
         margin-top: 6px;
         margin-bottom: 2px;
+        --paper-input-container-input: {
+          font-size: 16px;
+        };
     }
 
     input[type=text], select, textarea {
@@ -228,12 +232,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-button id='sign-in' on-click='login' style='color: #424A54;'>Login</paper-button>
             </template>
             <template is="dom-if" if="{{isLoggedIn}}">
-            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;"  >Become a Host</paper-button></a>
-              </iron-selector>
+            <template is='dom-if' if="{{currentUser.isNotHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="login-page" href="login-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;"  >Become a Host</paper-button></a>
+                </iron-selector>
+              </template>
+              <template is='dom-if' if="{{currentUser.isHost}}">
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                  <a name="create-meal-page" href="create-meal-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;" >Create a Meal</paper-button></a>
+                </iron-selector>
+              </template>
               <paper-button raised id='logout' onclick="logout()" on-click='logout' style="color: #424A54;">Logout</paper-button>
               <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;">Account</paper-button></a>
+              <a name="profile-page" href="profile-page" style="padding: 0;"><paper-button raised id='logout' style="color: #424A54; font-weight: normal;" on-click='selfUser'>Account</paper-button></a>
               </iron-selector>
               </template>
 
@@ -250,17 +261,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <form method="get" action="/form/handler" id="meal-form">
               <div class="form-content">
                 <label for="age" class="col-25">Age</label>
-                <input type="text" id="age" name="age" placeholder="30" class="col-75">
+                <paper-input value='{{age}}' type="text" id="age" name="age" placeholder="30" class="col-75" style='flex-grow: 1; text-align: left;'></paper-input>
               </div>
               <div class="form-content">
                 <label for="zipcode" class="col-25">Zipcode</label>
-                <input type="text" id="zipcode" name="zipcode" placeholder="32601" class="col-75">
+                <paper-input value='{{zipcode}}' type="text" id="zipcode" name="zipcode" placeholder="32601" class="col-75" style='flex-grow: 1; text-align: left;'> </paper-input>
               </div>
               <div class="form-content">
                 <label for="description" class="col-25">Bio</label>
-                <textarea id="description" name="description" placeholder="Write something about yourself.."  class="col-75" style="height:200px"></textarea>
+                 <paper-textarea value='{{description}}' id="description" name="description" placeholder="Write something about yourself..."  class="col-75" style='flex-grow: 1; text-align: left;'></paper-textarea>
               </div>
-              <paper-button raised id='signin-button' style="margin-top: 20px; margin-left: 90px; margin-bottom: 10px; text-align:center; width: 30%">Submit</paper-button>
+              <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="home-page" href="home-page" style="padding: 0;"><paper-button raised id='signin-button' style="margin-top: 20px; margin-left: 90px; margin-bottom: 10px; text-align:center; width: 30%; font-weight: normal;" on-click='becomeHost'>Submit</paper-button></a>
+              </iron-selector>
+              
             </form>
           </div>
         </div>
@@ -276,6 +290,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'login-page'; }
       static get properties() {
         return {
+          currentUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
+          selectedUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           isLoggedIn: {
             type: Boolean,
             value: false,
@@ -291,6 +315,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       }
 
+      selfUser(){
+        var that = this;
+        var data = firebase.database().ref('users/' + window.user.uid);
+        data.on('value', function(snapshot) {
+          var userinfo = snapshot.val();
+          that.selectedUser = userinfo;
+        });
+      }
+
       ready(){
         super.ready();
         this.isLoggedOut = true;
@@ -303,8 +336,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (window.user != null) {
             that.isLoggedIn = true;
             that.isLoggedOut = false;
+            var data = firebase.database().ref('users/' + window.user.uid);
+            data.on('value', function(snapshot) {
+              var userinfo = snapshot.val();
+              that.currentUser = userinfo;
+              that.selectedUser = userinfo;
+            });
           }
         });
+      }
+
+      becomeHost(){
+        var age = this.age;
+        var zipcode = this.zipcode;
+        var description = this.description;
+        firebase.database().ref('users/' + window.user.uid).set({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          rating: 5,
+          age: age,
+          zipcode: zipcode,
+          description: description,
+          isHost: true,
+          isNotHost: false,
+        });
+        alert('You have become a host!');
       }
 
       login(){

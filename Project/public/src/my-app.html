@@ -121,34 +121,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fallback-selection="view404"
             role="main">
           <home-page name="home-page" 
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></home-page>
           <login-page name="login-page" 
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></login-page>
           <signup-page name="signup-page" 
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></signup-page>
-          <profile-page name="profile-page" 
+          <profile-page name="profile-page"
+          current-user="{{currentUser}}"
           selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></profile-page>
           <meal-page name="meal-page" 
+          current-user="{{currentUser}}"
           selected-user="{{selectedUser}}"
           selected-Meal="{{selectedMeal}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></meal-page>
-          <create-meal-page name="create-meal-page" 
+          <create-meal-page name="create-meal-page"
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}" 
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></create-meal-page>
           <about-us-page name="about-us-page" 
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></about-us-page>
-          <meal-search-page name="meal-search-page" 
+          <meal-search-page name="meal-search-page"
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}" 
           selected-Meal="{{selectedMeal}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></meal-search-page>
           <faq-page name="faq-page" 
+          current-user="{{currentUser}}"
+          selected-user="{{selectedUser}}"
           is-logged-in="{{isLoggedIn}}" 
           is-logged-out="{{isLoggedOut}}"></faq-page>
           <my-view404 name="view404"></my-view404>
@@ -179,6 +195,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get properties() {
         return {
+          currentUser: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true
+          },
           selectedUser: {
             type: Object,
             notify: true,
